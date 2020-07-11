@@ -2166,23 +2166,28 @@ def worldmap_plot():
 
                     if INSDQualifier[0].text == 'lat_lon':
                         lat_lon = INSDQualifier[1].text
-                        if "S" in lat_lon:
-                            lat = 0 - float(lat_lon[0: lat_lon.index("S") - 1])
+                        while(True):
+                            try:
+                                if "S" in lat_lon:
+                                    lat = 0 - float(lat_lon[0: lat_lon.index("S") - 1])
 
-                            if "W" in lat_lon:
-                                lon = 0 - float(lat_lon[lat_lon.index("S") + 1: lat_lon.index("W") - 1])
+                                    if "W" in lat_lon:
+                                        lon = 0 - float(lat_lon[lat_lon.index("S") + 1: lat_lon.index("W") - 1])
+                                        break
+                                    else:
+                                        lon = float(lat_lon[lat_lon.index("S") + 1: lat_lon.index("E") - 1])
+                                        break
+                                else:
+                                    lat = float(lat_lon[0: lat_lon.index("N") - 1])
 
-                            else:
-                                lon = float(lat_lon[lat_lon.index("S") + 1: lat_lon.index("E") - 1])
-
-                        else:
-                            lat = float(lat_lon[0: lat_lon.index("N") - 1])
-
-                            if "W" in lat_lon:
-                                lon = 0 - float(lat_lon[lat_lon.index("N") + 1: lat_lon.index("W") - 1])
-
-                            else:
-                                lon = float(lat_lon[lat_lon.index("N") + 1: lat_lon.index("E") - 1])
+                                    if "W" in lat_lon:
+                                        lon = 0 - float(lat_lon[lat_lon.index("N") + 1: lat_lon.index("W") - 1])
+                                        break
+                                    else:
+                                        lon = float(lat_lon[lat_lon.index("N") + 1: lat_lon.index("E") - 1])
+                                        break
+                            except ValueError as err:
+                                break
 
                     if INSDQualifier[0].text == 'country':
                         country = str(INSDQualifier[1].text)
