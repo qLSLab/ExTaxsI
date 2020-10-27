@@ -1,0 +1,8 @@
+numpy=1.16.3
+scipy=1.2.1
+matplotlib=3.0.3
+ipython
+pandas=0.24.2
+sympy 
+nose
+plotly
