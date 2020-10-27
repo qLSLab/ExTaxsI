@@ -5,10 +5,10 @@ ExTaxI
 
 Project overview
 ----------------
-ExTaxsI is a bioinformatic tool aimed to elaborate and visualize molecular and taxonomic informations.
+ExTaxI is a bioinformatic tool aimed to elaborate and visualize molecular and taxonomic informations.
 This open-source user friendly project, written in Python 3.7, allows the creation of interactive plots starting from NCBI search query or directly from offline taxonomic files.
 
-ExTaxsI has multiple functions:
+ExTaxI has multiple functions:
 
 * DATABASE: creation of multi FASTA files composed by nucleotide sequences, taxonomic lists, genes and accessions, starting from manual inputs or csv/tsv files.
 
@@ -19,7 +19,7 @@ ExTaxsI has multiple functions:
 Hardware requirements
 ---------------------
 Minimum hardware requirements:
-no specific requirements are needed for ExTaxsI installation, otherwise for the correct functioning of the software we suggest the following:
+no specific requirements are needed for ExTaxI installation, otherwise for the correct functioning of the software we suggest the following:
 
 * RAM: 4GB
 * CPU: quad-core or more.
@@ -42,37 +42,37 @@ otherwise, run the following command:
 
 **3- CUSTOMIZE YOUR SETTINGS:**
 
-Before starting to use ExTaxsI, the settings.ini file should be customized:
+Before starting to use ExTaxI, the settings.ini file should be customized:
 * entrez_email: insert your email;
 * api_key: insert your api_key created from NCBI;
 
 In order to not overload servers, by entering your APY key in the setting file, NCBI admits maximum 10 requests/second for all activity from that key;
 
 
-How to run extaxsi
+How to run extaxi
 ------------------
-Open terminal to the ExTaxsI folder directory by running the entire path:
+Open terminal to the ExTaxI folder directory by running the entire path:
 
 linux:
 
-* cd /path/to/ ExTaxsI folder
+* cd /path/to/ ExTaxI folder
 
 windows:
 
-* cd /d D: \ ExTaxsI folder
+* cd /d D: \ ExTaxI folder
 
 mac:
 
-* cd ~/path/to/ ExTaxsI folder
+* cd ~/path/to/ ExTaxI folder
 
 Now that you are in the right directory, run the following command to start:
 
-* python extaxsi.py
+* python ExTaxI.py
 
 Operating instructions
 ----------------------
 
-The first time that you run ExTaxsI, the program will take time to download the local database which you can update as needed on startup.
+The first time that you run ExTaxI, the program will take time to download the local database which you can update as needed on startup.
 
 **Which module do you want to use?**
 
