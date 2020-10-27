@@ -12,7 +12,7 @@ ExTaxsI has multiple functions:
 
 * DATABASE: creation of multi FASTA files composed by nucleotide sequences, taxonomic lists, genes and accessions, starting from manual inputs or csv/tsv files.
 
-* VISUALIZATION: creation of interactive plots, such as scatterplot, sunburst and worldmap, starting from dbs output or external sources.
+* VISUALIZATION: creation of interactive plots, such as ScatterPlot, SunBurst and world map, starting from dbs output or external sources.
 
 * ID CONVERSION: conversion of taxID to 6ranks taxonomy and vice versa; can convert single manual inputs, take multiple inputs joined together by a plus sign or tsv/csv file with a list of taxIDs.
 
@@ -79,7 +79,7 @@ The first time that you run ExTaxsI, the program will take time to download the 
 Choose the module you’re interested in by entering the correlated number:
 
 1. Database creation module: taxonomy and FASTA files download;
-2. Statistical module: scatter plot and world map from taxonomy files or queries;
+2. Statistical module: ScatterPlot and world map from taxonomy files or queries;
 3. Taxonomy IDs converter: conversion of taxID to 6ranks taxonomy and vice versa;
 
 
@@ -103,7 +103,7 @@ Available formats:
 * TSV format
 
 
-**Module 2: Statistical module; scatter plot and world map from taxonomy files or queries**
+**Module 2: Statistical module; ScatterPlot and world map from taxonomy files or queries**
 
 Module2’s required data, can be uploaded in several ways:
 * manually, by entering a query;
@@ -111,11 +111,11 @@ Module2’s required data, can be uploaded in several ways:
 * uploading file from external sources containing taxonomy lists.
 
 It's possible to do 3 types of interactive plots:
-* scatterplot: uses taxonomy as input to produce a graph that indicates the quantity of each individual taxonomic unit and which taxons are present;
+* ScatterPlot: uses taxonomy as input to produce a graph that indicates the quantity of each individual taxonomic unit and which taxons are present;
 ![alt text](https://github.com/qLSLab/extaxi/blob/master/images/aves%20scatterplot%20COX1.png)
-* sunburst: uses taxonomy but creates an expansion pie that allows to explore taxonomy in depth with less weight on the quantity of each individual taxonomic unit;
+* SunBurst: uses taxonomy but creates an expansion pie that allows to explore taxonomy in depth with less weight on the quantity of each individual taxonomic unit;
 ![alt text](https://github.com/qLSLab/extaxi/blob/master/images/sunburst%20odonata.png)
-* worldmap: uses the phylogeographic data to produce a map indicating the position of each individual species;
+* world map: uses the phylogeographic data to produce a map indicating the position of each individual species;
 ![alt text](https://github.com/qLSLab/extaxi/blob/master/images/worldmap.png)  
 
 Output file format: html
