@@ -35,7 +35,7 @@ https://www.python.org/
 To install external libraries open terminal;
 
 if you are a conda user, run the following command:
-* conda create - -name myenv - -file conda_req.txt
+* conda create - -name myenv - -file requirements.txt
 
 otherwise, run the following command:
 * pip install -r requirements.txt
