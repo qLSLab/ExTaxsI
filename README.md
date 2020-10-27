@@ -1,7 +1,7 @@
-EXTAXSI
+ExTaxI
 =======
 
-![alt text](https://github.com/qLSLab/extasi/blob/master/image/Project%20Exta.png)
+![alt text](https://github.com/qLSLab/extaxi/blob/master/images/Project%20Exta.png)
 
 Project overview
 ----------------
@@ -112,11 +112,11 @@ Module2’s required data, can be uploaded in several ways:
 
 It's possible to do 3 types of interactive plots:
 * scatterplot: uses taxonomy as input to produce a graph that indicates the quantity of each individual taxonomic unit and which taxons are present;
-![alt text](https://github.com/qLSLab/extasi/blob/master/image/aves%20scatterplot%20COX1.png)
+![alt text](https://github.com/qLSLab/extaxi/blob/master/images/aves%20scatterplot%20COX1.png)
 * sunburst: uses taxonomy but creates an expansion pie that allows to explore taxonomy in depth with less weight on the quantity of each individual taxonomic unit;
-![alt text](https://github.com/qLSLab/extasi/blob/master/image/sunburst%20odonata.png)
+![alt text](https://github.com/qLSLab/extaxi/blob/master/images/sunburst%20odonata.png)
 * worldmap: uses the phylogeographic data to produce a map indicating the position of each individual species;
-![alt text](https://github.com/qLSLab/extasi/blob/master/image/worldmap.png)  
+![alt text](https://github.com/qLSLab/extaxi/blob/master/images/worldmap.png)  
 
 Output file format: html
 
