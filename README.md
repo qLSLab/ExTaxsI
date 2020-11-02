@@ -40,7 +40,7 @@ if you are a conda user, run the following command:
 otherwise, run the following command:
 * pip install -r requirements.txt
 
-To etetoolkir package with conda run in your new environment:
+To install etetoolkit package with conda run in your new environment:
 * conda install -c etetoolkit ete3
 
 **3- CUSTOMIZE YOUR SETTINGS:**
