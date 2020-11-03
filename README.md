@@ -1,14 +1,14 @@
-ExTaxI
+ExTaxsI
 =======
 
-![alt text](https://github.com/qLSLab/extaxi/blob/master/images/Project%20Exta.png)
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/Project%20Exta.png)
 
 Project overview
 ----------------
-ExTaxI is a bioinformatic tool aimed to elaborate and visualize molecular and taxonomic informations.
+ExTaxsI is a bioinformatic tool aimed to elaborate and visualize molecular and taxonomic informations.
 This open-source user friendly project, written in Python 3.7, allows the creation of interactive plots starting from NCBI search query or directly from offline taxonomic files.
 
-ExTaxI has multiple functions:
+ExTaxsI has multiple functions:
 
 * DATABASE: creation of multi FASTA files composed by nucleotide sequences, taxonomic lists, genes and accessions, starting from manual inputs or csv/tsv files.
 
@@ -19,7 +19,7 @@ ExTaxI has multiple functions:
 Hardware requirements
 ---------------------
 Minimum hardware requirements:
-no specific requirements are needed for ExTaxI installation, otherwise for the correct functioning of the software we suggest the following:
+no specific requirements are needed for ExTaxsI installation, otherwise for the correct functioning of the software we suggest the following:
 
 * RAM: 4GB
 * CPU: quad-core or more.
@@ -45,37 +45,37 @@ To install etetoolkit package with conda run in your new environment:
 
 **3- CUSTOMIZE YOUR SETTINGS:**
 
-Before starting to use ExTaxI, the settings.ini file should be customized:
+Before starting to use ExTaxsI, the settings.ini file should be customized:
 * entrez_email: insert your email;
 * api_key: insert your api_key created from NCBI;
 
 In order to not overload servers, by entering your APY key in the setting file, NCBI admits maximum 10 requests/second for all activity from that key;
 
 
-How to run extaxi
+How to run extaxsi
 ------------------
-Open terminal to the ExTaxI folder directory by running the entire path:
+Open terminal to the ExTaxsI folder directory by running the entire path:
 
 linux:
 
-* cd /path/to/ ExTaxI folder
+* cd /path/to/ ExTaxsI folder
 
 windows:
 
-* cd /d D: \ ExTaxI folder
+* cd /d D: \ ExTaxsI folder
 
 mac:
 
-* cd ~/path/to/ ExTaxI folder
+* cd ~/path/to/ ExTaxsI folder
 
 Now that you are in the right directory, run the following command to start:
 
-* python ExTaxI.py
+* python ExTaxsI.py
 
 Operating instructions
 ----------------------
 
-The first time that you run ExTaxI, the program will take time to download the local database which you can update as needed on startup.
+The first time that you run ExTaxsI, the program will take time to download the local database which you can update as needed on startup.
 
 **Which module do you want to use?**
 
@@ -115,11 +115,11 @@ Module2’s required data, can be uploaded in several ways:
 
 It's possible to do 3 types of interactive plots:
 * ScatterPlot: uses taxonomy as input to produce a graph that indicates the quantity of each individual taxonomic unit and which taxons are present;
-![alt text](https://github.com/qLSLab/extaxi/blob/master/images/aves%20scatterplot%20COX1.png)
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/aves%20scatterplot%20COX1.png)
 * SunBurst: uses taxonomy but creates an expansion pie that allows to explore taxonomy in depth with less weight on the quantity of each individual taxonomic unit;
-![alt text](https://github.com/qLSLab/extaxi/blob/master/images/sunburst%20odonata.png)
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/sunburst%20odonata.png)
 * world map: uses the phylogeographic data to produce a map indicating the position of each individual species;
-![alt text](https://github.com/qLSLab/extaxi/blob/master/images/worldmap.png)  
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/worldmap.png)  
 
 Output file format: html
 
