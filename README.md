@@ -35,13 +35,10 @@ https://www.python.org/
 To install external libraries open terminal;
 
 if you are a conda user, run the following command:
-* conda create - -name myenv - -file requirements.txt
+* conda create --name extaxsi --file requirements.txt --channel default --channel etetoolkit
 
 otherwise, run the following command:
 * pip install -r requirements.txt
-
-To install etetoolkit package with conda run in your new environment:
-* conda install -c etetoolkit ete3
 
 **3- CUSTOMIZE YOUR SETTINGS:**
 
@@ -58,15 +55,15 @@ Open terminal to the ExTaxsI folder directory by running the entire path:
 
 linux:
 
-* cd /path/to/ ExTaxsI folder
+* cd /path/to/ExTaxsI folder
 
 windows:
 
-* cd /d D: \ ExTaxsI folder
+* cd /path/to/ExTaxsI folder
 
 mac:
 
-* cd ~/path/to/ ExTaxsI folder
+* cd /path/to/ExTaxsI folder
 
 Now that you are in the right directory, run the following command to start:
 
