@@ -32,9 +32,11 @@ https://www.python.org/
 
 **2- INSTALL EXTERNAL LIBRARIES:**
 
-To install external libraries open terminal;
+To install external libraries open a terminal (prompt for windows users) in the extaxsi folder or navigate to the folder with the following:
+* cd path/to/ExTaxsI-folder
+* cd path\to\ExTaxsI-folder (windows-users)
 
-if you are a conda user, run the following command:
+Now that you are inside the ExTaxsI-folder, if you are a conda user, run the following command:
 * conda create --name extaxsi --file requirements.txt --channel default --channel etetoolkit
 
 otherwise, run the following command:
@@ -51,19 +53,19 @@ In order to not overload servers, by entering your APY key in the setting file, 
 
 How to run extaxsi
 ------------------
-Open terminal to the ExTaxsI folder directory by running the entire path:
+Open a terminal and go to the ExTaxsI folder directory by running the entire path:
 
 linux:
 
-* cd /path/to/ExTaxsI folder
+* cd path/to/ExTaxsI-folder
 
-windows:
+windows (prompt):
 
-* cd /path/to/ExTaxsI folder
+* cd path\to\ExTaxsI-folder
 
 mac:
 
-* cd /path/to/ExTaxsI folder
+* cd path/to/ExTaxsI-folder
 
 Now that you are in the right directory, run the following command to start:
 
