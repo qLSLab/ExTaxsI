@@ -48,7 +48,7 @@ Before starting to use ExTaxsI, the settings.ini file should be customized:
 * entrez_email: insert your email;
 * api_key: insert your api_key created from NCBI;
 
-In order to not overload servers, by entering your APY key in the setting file, NCBI admits maximum 10 requests/second for all activity from that key;
+In order to not overload servers, by entering your APY key in the setting file, NCBI admits maximum 10 requests/second for all activity from that key.
 
 
 How to run extaxsi

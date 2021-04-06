@@ -829,7 +829,7 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                                     print("\nNo results found with: \n",
                                           search_index, "\n")
                                     logging.warning("No results found with: %s" % search_index)
-                                    continue
+                                    break
 
                                 # results["count"] contains the results counts found with the query
                                 # This number is needed to define how many ID's we will search and download
@@ -905,8 +905,9 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                             x += 1
                             file_name = rename_file(directory, element, "_gene_list_%i.tsv" % x)
 
-                        download_gene_markers(counter_queries, web_env, key, search_index, directory, file_name)
-                        time.sleep(2)
+                        if counter_queries != 0:
+                            download_gene_markers(counter_queries, web_env, key, search_index, directory, file_name)
+                            time.sleep(2)
 
                     merge_gene_top10(None, marker_folder)
 
@@ -1256,7 +1257,7 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
                 if counter_query == 0:
                     print("\nNo results found with this query: %s\nMaybe a typo?\n" % search_term)
-
+                    break
                 else:
                     print("\nThe number of sequence found is: {0}{2}{1}".format(color.GREEN,
                                                                                 color.END,
