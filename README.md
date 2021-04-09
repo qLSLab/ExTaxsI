@@ -40,7 +40,7 @@ Now that you are inside the ExTaxsI-folder, if you are a conda user, run the fol
 * conda create --name myExTaxsIenv --file requirements.txt --channel default --channel etetoolkit
 
 otherwise, run the following command:
-* pip install -r requirements.txt
+* pip install -r pip_requirements.txt
 
 **3- CUSTOMIZE YOUR SETTINGS:**
 
