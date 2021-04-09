@@ -1,0 +1,10 @@
+biopython
+numpy
+scipy
+matplotlib
+ipython
+pandas
+sympy 
+nose
+plotly
+ete3
