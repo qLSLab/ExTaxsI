@@ -2053,40 +2053,40 @@ def merge_gene_top10(search_term,path):
             print("\nPlease enter y or n.... try again")
 
 def top10_graph(title,x_values , y_values):
-  #y
-  yval = y_values
-  #x
-  xval = x_values
+    #y
+    yval = y_values
+    #x
+    xval = x_values
 
-  #plot
-  fig=go.Figure([go.Bar(x=xval, y=yval,
-                        text=xval,
-                        textposition='auto',orientation='h')])
+    #plot
+    fig=go.Figure([go.Bar(x=xval, y=yval,
+                          text=xval,
+                          textposition='auto',orientation='h')])
 
-  #customize aspect
-  fig.update_traces(overwrite=True,
-                  marker={"color": xval,
-                          "colorscale": 'blugrn'},
-                              )
+    #customize aspect
+    fig.update_traces(overwrite=True,
+                    marker={"color": xval,
+                            "colorscale": 'blugrn'},
+                                )
 
-  fig.update_layout(title={'text':"Top10 "+title+": ",
-                                  'y':0.95,
-                                  'x':0.5,
-                                  'xanchor': 'center',
-                                  'yanchor': 'top'},
-                                  autosize=False,
-                                  width=900,
-                                  height=950,
-                                #yaxis_title="",
-                                font=dict(family="Bodoni 72 Smallcaps",
-                                          size=17,
-                                          color='black'),
-                                paper_bgcolor='#ffffff',
-                                plot_bgcolor='#e6f0f5',
-                                bargap=0.4
-                              )
+    fig.update_layout(title={'text':"Top10 "+title+": ",
+                                    'y':0.95,
+                                    'x':0.5,
+                                    'xanchor': 'center',
+                                    'yanchor': 'top'},
+                                    autosize=False,
+                                    width=900,
+                                    height=950,
+                                  #yaxis_title="",
+                                  font=dict(family="Bodoni 72 Smallcaps",
+                                            size=17,
+                                            color='black'),
+                                  paper_bgcolor='#ffffff',
+                                  plot_bgcolor='#e6f0f5',
+                                  bargap=0.4
+                                )
 
-  return fig
+    return fig
 
 def worldmap_plot():
     print("--- WORLD MAP MENU ---\n")
@@ -2715,35 +2715,31 @@ def taxonomyID_module():
             "Do you want to convert taxonomy IDs through a tsv or manual input? (f > file, m > manual) ")
 
     if file_manual[0] in ("m", "M"):  # Considerare la tipologia di file da avere come input
-    	'''
-    	while(True):
-	    	try:
-		    	id_or_name = int(input('1 - To convert TaxIDs to Taxonomy names\n'+
-		    						   '2 - To convert Taxonomy names to TaxIDs\n'+
-		    						   '>> Enter the option number: '))
+        while (True):
+            try:
+                id_or_name = int(input('1 - To convert TaxIDs to Taxonomy names\n'+
+                                       '2 - To convert Taxonomy names to TaxIDs\n'+
+                                       '>> Enter the option number: '))
+                if id_or_name == 1:
+                    taxa_input = str(input("\nIf you want to search for multiple taxonomy IDs add '+' as separator \n" +
+                                                   "Example: 6224+458+26351+6223\n" +
+                                                   "\n>> Enter one or more taxonomy IDs: "))
+                    taxa_ids = taxa_input.split("+")
+                    skip_first_row = False
+                    break
 
-		    	while(id_or_name != 1 and id_or_name != 2):
-		    		print("Wrong input, choose 1 or 2, you can do it!\n")
-			    	id_or_name = int(input('1 - To convert TaxIDs to Taxonomy names\n'+
-                                           '2 - To convert Taxonomy names to TaxIDs\n'+
-                                           '>> Enter the option number: '))
-			    break
+                if id_or_name == 2:
+                    taxa_input = str(input("\nIf you want to search for multiple taxonomies name add '+' as separator \n" +
+                                                   "Example: odonata+bufo bufo+arachnida+Hymenoptera\n" +
+                                                   "\n>> Enter one or more taxonomies name: "))
+                    taxa_ids = taxa_input.split("+")
+                    skip_first_row = False
+                    break
 
-			except ValueError as err:
-				print("Wrong input, choose 1 or 2, you can do it!\n")
-				continue
+            except ValueError as err:
+                print('\nPlease retry! Enter 1 or 2!')
+                continue
 
-		if id_or_name == 1:
-	        taxa_input = str(input("If you want to search for multiple taxonomy IDs add '+' as separator \n" +
-	                                       "Example: 6224+458+26351+6223\n" +
-	                                       "\n>> Enter one or more taxonomy IDs: "))
-        else:
-            taxa_input = str(input("If you want to search for multiple taxonomies name add '+' as separator \n" +
-	                                       "Example: odonata+bufo bufo+arachnida+Hymenoptera\n" +
-	                                       "\n>> Enter one or more taxonomies name: "))
-        taxa_ids = taxa_input.split("+")
-        skip_first_row = False
-		'''
     else:
 
         while True:
