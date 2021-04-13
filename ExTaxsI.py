@@ -1257,7 +1257,7 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
                 if counter_query == 0:
                     print("\nNo results found with this query: %s\nMaybe a typo?\n" % search_term)
-                    break
+                    continue
                 else:
                     print("\nThe number of sequence found is: {0}{2}{1}".format(color.GREEN,
                                                                                 color.END,
@@ -2288,6 +2288,16 @@ def worldmap_plot():
             else:
                 textgene += str([element.gene])
 
+            namespecies=''
+            if len(list(element.org.split(','))) > 3:
+                chunks = [list(element.org.split(','))[x:x+3] for x in range(0, len(list(element.org.split(','))), 3)]
+                print(chunks)
+                for chunk in chunks:
+                    namespecies += str(chunk)
+                    namespecies += '<br>'
+            else:
+                namespecies += str([element.org])
+
             cities.append(
                 go.Scattergeo(
                     locationmode='country names',
@@ -2306,7 +2316,7 @@ def worldmap_plot():
                         ),
                         sizemode='area'
                     ),
-                    name=element.org
+                    name=namespecies
                 )
             )
 
