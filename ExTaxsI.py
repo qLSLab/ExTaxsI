@@ -2743,7 +2743,12 @@ def taxonomyID_module():
     else:
 
         while True:
-            taxa_id_path = input(">> Enter your taxonomy ID file path: ")
+            taxa_file_type = input(">>Is your tsv/csv a list of TaxIDs or organism?[Enter T or O]: ")
+            o_choice =['O','o']
+            if taxa_file_type[0] in o_choice:
+                id_or_name = 2
+
+            taxa_id_path = input(">> Enter your file path: ")
             print("")
             taxa_ids = []
 
@@ -2785,8 +2790,37 @@ def taxonomyID_module():
             skip_first_row = False
 
     if id_or_name == 2:
-        print(ncbi.get_name_translator(taxa_ids))
+        if file_manual[0] in ("m", "M"):
+            print(ncbi.get_name_translator(taxa_ids))
+        else:
+            for counter, taxa in enumerate(taxa_ids):
+                if file_manual[0] not in ("m", "M"):
+                    update_progress(counter, len(taxa_ids))
 
+                if skip_first_row:
+                    skip_first_row = False
+                    continue
+
+                try:
+                    # Getting taxid from names:
+                    lineage = ncbi.get_name_translator([taxa])
+                    taxonomy_id_out = "{0}\t{1}{2}".format(taxa, lineage, "\n")
+                    out_handle.write(taxonomy_id_out)
+
+
+                except ValueError:  # In case its id is not found
+                    logging.error(" There is no taxid for %s, ncbi.get_name exception" % taxa, exc_info=True)
+                    if file_manual[0] in ("m", "M"):
+                        print("There is no taxonomy for %s, ncbi.get_name exception\n" % taxa)
+
+                    else:
+                        taxonomy_id_out = "{0}\t{1}{2}".format(taxa, "NA", "\n")
+                        out_handle.write(taxonomy_id_out)
+                    continue
+
+            if file_manual[0] not in ("m", "M"):
+                update_progress(len(taxa_ids), len(taxa_ids))
+                out_handle.close()
     else:
         for counter, taxa in enumerate(taxa_ids):
 
