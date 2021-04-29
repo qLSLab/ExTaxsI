@@ -1425,9 +1425,9 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 def scatterplot():
     print("Choose which type of input you will use\n"
           "Enter one of the following options number\n"
-          "  1 - Taxonomy file from this tool\n"
+          "  1 - Taxonomy file already created with this tool\n"
           "  2 - Doing a query on NCBI and directly plot it\n"
-          "  3 - File input from xxx ecc.. for particular settings")
+          "  3 - File input (tsv or csv) created by the user")
 
     while True:
         try:
@@ -2422,9 +2422,9 @@ def worldmap_plot():
 def sunburst_plot():
     print("Choose which type of input you will use\n"
           "Enter one of the following options number\n"
-          "  1 - Taxonomy file from this tool\n"
-          "  2 - Doing a query on NCBI and directly plot it\n"
-          "  3 - Manual created file")
+            "  1 - Taxonomy file already created with this tool\n"
+            "  2 - Doing a query on NCBI and directly plot it\n"
+            "  3 - File input (tsv or csv) created by the user")
 
     while True:
         try:
