@@ -42,7 +42,7 @@ Now that you are inside the ExTaxsI-folder, if you are a conda user (best option
 otherwise (not recommended), run the following command:
 * pip3 install -r pip_requirements.txt
 
-and plotly orca can be installed following:
+and plotly-orca can be installed using the following instructions:
 https://github.com/plotly/orca
 
 **3- CUSTOMIZE YOUR SETTINGS:**
