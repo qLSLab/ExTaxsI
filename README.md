@@ -39,7 +39,7 @@ To install external libraries open a terminal (prompt for windows users) in the 
 Now that you are inside the ExTaxsI-folder, if you are a conda user (best option), run the following command:
 * conda create --name myExTaxsIenv --file requirements.txt --channel default --channel etetoolkit --channel plotly
 
-otherwise, run the following command:
+otherwise (not recommended), run the following command:
 * pip3 install -r pip_requirements.txt
 
 **3- CUSTOMIZE YOUR SETTINGS:**
