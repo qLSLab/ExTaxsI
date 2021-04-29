@@ -8,3 +8,5 @@ sympy
 nose
 plotly
 ete3
+plotly-orca
+psutil

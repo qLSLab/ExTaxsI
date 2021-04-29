@@ -2020,12 +2020,14 @@ def merge_gene_top10(search_term,path):
                 df_t['count'] = df_t.sum(axis=1)
                 if len(df_t) >= 10:
                     df_t = df_t.head(10).sort_values(by=['count'], ascending= True)
+                    df_t = df_t.rename_axis(['index']) #error file generation if name of axis is =0
                     df_t.reset_index(level=0, inplace=True)
                     df_top10 = df_t[['index','count']]
                     graph = top10_graph(' list ',df_top10['count'],df_top10['index'])
                     graph.write_image('top10_genes.png')
                 else:
                     df_t = df_t.sort_values(by=['count'], ascending= True)
+                    df_t = df_t.rename_axis(['index'])
                     df_t.reset_index(level=0, inplace=True)
                     df_top = df_t[['index','count']]
                     graph = top10_graph(' list ',df_top['count'],df_top['index'])
