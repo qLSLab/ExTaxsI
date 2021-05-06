@@ -12,6 +12,7 @@ if platform.system() != "Windows":
 
 import ETI_Lib_DB as ETIDB
 import ETI_Lib_Statistics as ETILSTAT
+import ETI_Lib_Tax as ETILTAX
 
 class color:
     # Colors
@@ -110,7 +111,6 @@ def DNA_drawing():
           color.END)
 
 
-
 def update_progress(work_needed, work_done):
     """Function to animate a progress bar
 
@@ -194,11 +194,11 @@ def main_menu():
         ETILSTAT.statistical_module()
 
     if module == 3:
-        taxonomyID_module()
+        ETILTAX.taxonomyID_module()
 
     if module == 4:
         anno = str(input(">>Annotation: "))
-        print_data(retrieve_annotation(anno))
+        #  print_data(ETILTAX.retrieve_annotation(anno)) # !!!! NO FUNCTION
 
     if module == 5:
         print("Oh! You found me out! Here take my money!")

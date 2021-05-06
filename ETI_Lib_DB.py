@@ -1,4 +1,6 @@
 import time
+import glob
+import os
 
 # Biopython
 from Bio import Entrez
@@ -9,6 +11,8 @@ import http.client as http
 
 # For log files
 import logging
+
+import csv
 
 import ETI_Lib as ETIL
 import ETI_Lib_Interface as ETILI
@@ -172,25 +176,27 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
         if (choice == 1 or choice == 4) and counter_queries > 0:
             ext = "_{0}_temporary.fasta".format(file_pos)
-            file_name = ETIL.rename_file(directory, output_name[0], ext)
-
-            download_fasta(counter_queries, web_env, key, search_index,
-                           directory, file_name)
+            file_name = ETIL.rename_file(ETIL.dWrkDirs['down'], output_name[0],
+                                         ext)
+            ETILRET.download_fasta(counter_queries, web_env, key, search_index,
+                                   ETIL.dWrkDirs['down'], file_name)
 
         if (choice == 2 or choice == 4) and counter_queries > 0:
             ext = "_{0}_temporary.tsv".format(file_pos)
-            file_name = rename_file(directory, output_name[1], ext)
-
-            download_accession_taxonomy(counter_queries, web_env, key,
-                                        search_index, directory, file_name)
+            file_name = ETIL.rename_file(ETIL.dWrkDirs['down'], output_name[1],
+                                         ext)
+            ETILRET.download_accession_taxonomy(counter_queries, web_env, key,
+                                                search_index,
+                                                ETIL.dWrkDirs['down'],
+                                                file_name)
 
         if end >= len(file):
             if output_name[0] is not None:
                 print("Merging all temporary files into %s" % output_name[0])
 
                 with open(output_name[0], 'wb') as outfile:
-                    for filename in glob.glob(
-                            '{0}*_temporary.fasta'.format(directory)):
+                    for filename in glob.glob('{0}*_temporary.fasta'.format(
+                            ETIL.dWrkDirs['down'])):
 
                         if filename == output_name[0]:
                             # don't want to copy the output into the output
@@ -204,8 +210,8 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
                 with open(output_name[1], 'wb') as outfile:
 
-                    for filename in glob.glob(
-                            '{0}*_temporary.tsv'.format(directory)):
+                    for filename in glob.glob('{0}*_temporary.tsv'.format(
+                            ETIL.dWrkDirs['down'])):
 
                         if filename == output_name[1]:
                             # don't want to copy the output into the output
@@ -351,7 +357,7 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                             csv_file_module_one)
 
                     else:
-                        marker_folder = directory
+                        marker_folder = ETIL.dWrkDirs['down']
 
                     for element in file_list:
 
@@ -497,12 +503,14 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
                         while os.path.exists(file_name) and overwrite != "0":
                             x += 1
-                            file_name = rename_file(directory, element,
+                            file_name = rename_file(ETIL.dWrkDirs['down'],
+                                                    element,
                                                     "_gene_list_%i.tsv" % x)
 
                         if counter_queries != 0:
                             download_gene_markers(counter_queries, web_env,
-                                                  key, search_index, directory,
+                                                  key, search_index,
+                                                  ETIL.dWrkDirs['down'],
                                                   file_name)
                             time.sleep(2)
 
@@ -685,15 +693,18 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
                     while os.path.exists(file_name) and overwrite != "0":
                         x += 1
-                        file_name = rename_file(directory, csv_file_module_one,
+                        file_name = rename_file(ETIL.dWrkDirs['down'],
+                                                csv_file_module_one,
                                                 "_taxonomy_%i.tsv" % x)
 
                     if len(file_list) > 2500:
-                        file_name = rename_file(directory, csv_file_module_one,
+                        file_name = rename_file(ETIL.dWrkDirs['down'],
+                                                csv_file_module_one,
                                                 "_temporary.tsv")
                         output_name[1] = file_name
                     download_accession_taxonomy(counter_queries, web_env, key,
-                                                search_index, directory,
+                                                search_index,
+                                                ETIL.dWrkDirs['down'],
                                                 file_name)
 
                 if len(file_list) > 2500:
@@ -702,7 +713,7 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
                 if input("Do you want to go to main menu or stop?\n"
                          ">> 0 for main menu, anything else to close: ") == 0:
-                    main_menu()
+                    ETILI.main_menu()
 
             else:
                 if len(
@@ -1087,12 +1098,12 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                     if choice == 1 or choice == 4:
                         ETILRET.download_fasta(counter_query, webenv,
                                                query_key, search_term,
-                                               directory, None)
+                                               ETIL.dWrkDirs['down'], None)
 
                     if choice == 2 or choice == 4:
                         ETILRET.download_accession_taxonomy(
                             counter_query, webenv, query_key, search_term,
-                            directory, None)
+                            ETIL.dWrkDirs['down'], None)
 
                     if choice == 3 or choice == 4:
                         ETILRET.download_gene_markers(
@@ -1100,11 +1111,12 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                             webenv,
                             query_key,
                             search_term,
-                            directory,
+                            ETIL.dWrkDirs['down'],
                             None,
                         )
 
-                        ETILRET.merge_gene_top10(search_term, directory)
+                        ETILRET.merge_gene_top10(search_term,
+                                                 ETIL.dWrkDirs['down'])
 
                     if choice == 5:
                         ETILI.clear()
@@ -1117,8 +1129,8 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
             elif plot_or_not == "scatter":
                 return ETILRET.download_accession_taxonomy(
-                    counter_query, webenv, query_key, search_term, directory,
-                    None)
+                    counter_query, webenv, query_key, search_term,
+                    ETIL.dWrkDirs['down'], None)
 
             elif plot_or_not == "world":
                 return {
@@ -1126,7 +1138,7 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                     'webenv': webenv,
                     'query_key': query_key,
                     'query': search_term,
-                    'folder_path': directory,
+                    'folder_path': ETIL.dWrkDirs['down'],
                     'file_input': None
                 }
 

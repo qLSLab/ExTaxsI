@@ -24,31 +24,12 @@ import time
 import datetime
 import os
 import sys
-import re
-import http.client as http
-import io
 
 # To parse and use setting file
 from configparser import ConfigParser
 
 # For log files
 import logging
-
-# Needed to elaborate csv files
-import csv
-import glob
-import pandas as pd
-
-# This module implements container datatypes providing alternatives to
-# Python’s general purpose built-in containers as counter
-import collections
-from collections import OrderedDict
-from collections import Counter
-
-# Biopython
-from Bio import Entrez
-from Bio.Entrez import Parser as ps
-# from Bio import SeqIO
 
 # import 1plotly.plotly as py
 import plotly.graph_objects as go
@@ -78,7 +59,6 @@ import ETI_Lib_DB as ETIDB
 import ETI_Lib_Interface as ETILI
 import ETI_Lib_Statistics as ETILSTAT
 
-ETIL.logInit()
 
 '''
 [ACCN]    Accession
@@ -106,56 +86,14 @@ ETIL.logInit()
 
 
 
-# # MAIN # #
 # readline doesn't exist in windows so we don't use it in case we are in windows
 if platform.system() != "Windows":
     readline.parse_and_bind('tab: complete')
     readline.set_completer_delims(' \t\n')
 
-# Initializing
-config = ConfigParser()
-
-# read values from config file
-config.read('settings.ini')
-
-# Here goes your email so NCBI can contact you in case of necessity
-logging.info(" Getting entrez_mail parameter from config file")
-Entrez.email = config.get('parameters', 'entrez_email')
-
-if Entrez.email == "example@example.com":
-    print("Please enter your email in the settings.ini file")
-    logging.info(" entrez_mail parameter is not defined (default value)")
-
-else:
-    logging.info(" Getting entrez_mail parameter completed")
-
-# directory is the path where your downloads will go
-logging.info(" Getting download_path parameter from config file")
-directory = config.get('parameters', 'download_path')
-logging.info(" Getting download_path parameter completed")
-
-# Here goes your api key so
-logging.info(" Getting api_key parameter from config file")
-if config.get('parameters', 'api_key') == "none":
-    logging.info(
-        " No api_key parameter entered, for best results enter your ncbi api key in the settings.ini file"
-    )
-
-else:
-    Entrez.api_key = config.get('parameters', 'api_key')
-    logging.info(" Getting api_key parameter completed")
-
-# Function to create the chosen download path
-if not ETIL.create_folder(directory):
-    directory = "./"
-
-# Initialize local taxonomy database and, in case it isn't found, downloading and creating a local database
-home = os.path.expanduser('~')
-
 try:
     taxa_database_stat = os.stat(
-        home +
-        '/.etetoolkit/taxa.sqlite')  # Checking last update of the database
+        ETIL.pathFilename( ETIL.dWrkDirs['ete'], 'taxa.sqlite'))  # Checking last update of the database
     taxa_database_time = taxa_database_stat.st_mtime
     print("\nTaxonomy database last update is {}".format(
         datetime.datetime.fromtimestamp(taxa_database_time)))

@@ -11,6 +11,8 @@ from urllib.error import HTTPError
 from Bio import Entrez
 from Bio.Entrez import Parser as ps
 
+import sqlite3
+
 import ETI_Lib as ETIL
 import ETI_Lib_Interface as ETILI
 
@@ -94,8 +96,8 @@ def download_fasta(counter_id, webenv, query_key, query, folder_path,
                    file_input):
     batch_size = 200  # Batch_size value limit our queries to NCBI so we don't get blacklisted
     if file_input is None:
-        file_name = ETIL.rename_file(folder_path, query,
-                                     ".fasta")  # Formatting the file name
+        strQuery = query.replace(' ', '_')
+        file_name = ETIL.pathFilename(ETIL.dWrkDirs['down'], strQuery + '.fasta')
         out_handle = open(
             file_name,
             "w")  # Creating the fasta file, where we will save our downloads
@@ -112,17 +114,14 @@ def download_fasta(counter_id, webenv, query_key, query, folder_path,
 
         if data is None:
             missing_part = 1
-
         elif file_input is None:
             out_handle.write(data)
-
         else:
             with open(file_input, 'a+') as a_writer:
                 a_writer.write("\n{0}".format(data))
 
     if file_input is None:
         out_handle.close()
-
     else:
         a_writer.close()
 
@@ -131,7 +130,6 @@ def download_fasta(counter_id, webenv, query_key, query, folder_path,
     if missing_part == 0:
         logging.info(' Fasta file has been created')
         print("\n ---- Fasta file has been created. ----\n\n")
-
     else:
         print(
             "\n ---- Fasta file has been created but some errors occurred. ----"
@@ -145,7 +143,7 @@ def download_accession_taxonomy(counter_id, webenv, query_key, query,
     logging.info(' Creating accession file')
     if file_input is None:
         file_name = input("Enter file name: ")
-        file_name = ETIL.rename_file(folder_path, file_name, "_taxonomy.tsv")
+        file_name = ETIL.pathFilename(ETIL.dWrkDirs['down'], file_name + "_taxonomy.tsv")
         out_handle = open(file_name, "w")
 
     batch_size = 200
@@ -665,4 +663,3 @@ def merge_gene_top10(search_term, path):
                     break
         except IndexError as err:
             print("\nPlease enter y or n.... try again")
-
