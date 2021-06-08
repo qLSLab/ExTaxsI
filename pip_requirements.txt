@@ -8,4 +8,4 @@ sympy
 nose
 plotly
 ete3
-psutils
+psutil
