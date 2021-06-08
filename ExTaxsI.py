@@ -2621,7 +2621,7 @@ def sunburst_plot():
         # branchvalues="total",
         hovertemplate='<b>%{label}</b><br>N° records: %{value}<br>' +  # %{percentEntry:.2%} of the parent<br> strange values
                       '<extra></extra>',
-        maxdepth=3, # fix value
+        maxdepth=2, # fix value
     )
     )
 
