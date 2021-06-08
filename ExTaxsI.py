@@ -1685,7 +1685,7 @@ def scatterplot():
     button_labels = ["Phylum", "Class", "Order", "Family", "Genus", "Species"]
 
     counter_step = 0
-    
+
     # print button counter
     print('button_counter:', button_counter)
 
@@ -2538,16 +2538,16 @@ def sunburst_plot():
                                    "{0}_with_less_than_{1}_results".format(title_graph, str(filter_value)),
                                    "_%i.txt" % x)
 
-    while True:
-        try:
-            depth = int(input("Smaller depths = light plots, default level is 2, available values: 2, 3, 4, 5, 6" +
-                              "\nEnter the depth of your sunburst : "))
-            if depth not in (2, 3, 4, 5, 6):
-                print("Please enter an natural number not less than 2 not more than 6!")
-            break
-
-        except ValueError:
-            print("Please insert a numeric value from 2 to 6.")
+    # while True:
+    #     try:
+    #         depth = int(input("Smaller depths = light plots, default level is 2, available values: 2, 3, 4, 5, 6" +
+    #                           "\nEnter the depth of your sunburst : "))
+    #         if depth not in (2, 3, 4, 5, 6):
+    #             print("Please enter an natural number not less than 2 not more than 6!")
+    #         break
+    #
+    #     except ValueError:
+    #         print("Please insert a numeric value from 2 to 6.")
 
     ##############
     # Initializing the list of traces for sunburst
@@ -2621,7 +2621,7 @@ def sunburst_plot():
         # branchvalues="total",
         hovertemplate='<b>%{label}</b><br>N° records: %{value}<br>' +  # %{percentEntry:.2%} of the parent<br> strange values
                       '<extra></extra>',
-        maxdepth=depth,
+        maxdepth=3, # fix value
     )
     )
 
