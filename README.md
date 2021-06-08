@@ -26,7 +26,7 @@ no specific requirements are needed for ExTaxsI installation, otherwise for the 
 
 Installation instructions
 -------------------------
-**1- Download Python:**
+**1- Download Python 3:**
 
 https://www.python.org/
 
