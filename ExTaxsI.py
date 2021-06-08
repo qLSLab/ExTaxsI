@@ -1685,6 +1685,9 @@ def scatterplot():
     button_labels = ["Phylum", "Class", "Order", "Family", "Genus", "Species"]
 
     counter_step = 0
+    
+    # print button counter
+    print('button_counter:', button_counter)
 
     for i in range(0, len(button_counter)):
 
