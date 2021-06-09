@@ -4,9 +4,10 @@ scipy=1.2.1
 matplotlib=3.0.3
 ipython
 pandas=0.24.2
-sympy 
+sympy
 nose
 plotly
 ete3
 plotly-orca
 psutil
+requests

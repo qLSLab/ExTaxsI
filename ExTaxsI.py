@@ -687,9 +687,10 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
             input_list_type = None
 
             while input_list_type not in ("A", "a", "t", "T", "o", "O"):
-                input_list_type = input("\n'A' if your csv file is a list of Accession\n" +
-                                        "'T' if it's a list of taxonomy IDs\n" +
-                                        "'O' if it's a list of organism name\n" +
+                input_list_type = input("\nA - if your file is a list of accessions\n" +
+                                        "T - if it's a list of TaxIDs\n" +
+                                        "O - if it's a list of organism name\n" +
+                                        "All the input files must have a csv or tsv extension, please refer to example files provided and tutorial for the guidelines.\n" +
                                         ">> Enter the choice: ")
 
                 if input_list_type in ("T", "t", "O", "o"):
@@ -1188,9 +1189,8 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
             print("|   Organism  = [ORGN]     Sequence Length = [SLEN]     Filter    = [FILT]   |")
             print("|----------------------------------------------------------------------------|\n")
             print("Examples of queries:\n"
-                  "1) odonata[ORGN] AND (latest[filter] AND all[FILT] NOT anomalous[filter]) ")
-            print("2) txid33208[Organism:exp] AND (18S OR SSU) NOT (mitochondrial OR " +
-                  "complete genome OR whole genome)\n")
+                  "1) carabus convexus ")
+            print("2) txid7742[ORGN] AND ACE2[gene]\n")
 
             # Possible HELP function?
             counter_query = 0
@@ -1421,8 +1421,7 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
 
 def scatterplot():
-    print("Choose which type of input you will use\n"
-          "Enter one of the following options number\n"
+    print("Enter one of the following options number\n"
           "  1 - Taxonomy file already created with this tool\n"
           "  2 - Doing a query on NCBI and directly plot it\n"
           "  3 - File input (tsv or csv) created by the user")
@@ -1687,7 +1686,7 @@ def scatterplot():
     counter_step = 0
 
     # print button counter
-    print('button_counter:', button_counter)
+    #print('button_counter:', button_counter)
 
     for i in range(0, len(button_counter)):
 
@@ -2421,8 +2420,7 @@ def worldmap_plot():
         print(" ---- Check log file for more details. ---- \n")
 
 def sunburst_plot():
-    print("Choose which type of input you will use\n"
-          "Enter one of the following options number\n"
+    print("Enter one of the following options number\n"
             "  1 - Taxonomy file already created with this tool\n"
             "  2 - Doing a query on NCBI and directly plot it\n"
             "  3 - File input (tsv or csv) created by the user")
@@ -2668,12 +2666,12 @@ def sunburst_plot():
             print("Error, insert only the numeric value of your choice")  # #
 
 def statistical_module():
-    print("--- STATISTICAL MODULE ---\n")
+    print("--- VISUALIZATION MODULE ---\n")
 
     print('Choose one of the following options: \n ',
           '1: Scatter plot \n ',
           '2: World map plot \n ',
-          '3: Sunburst-pie plot \n ',
+          '3: Sunburst plot \n ',
           '4: Back to main menu \n ',
           'CTRL + C: Close ExTaxsI \n ')
 
@@ -2971,9 +2969,9 @@ def main_menu():
 
     print("\n Which module do you want to use? \n")
     print(" 1 - Database creation module: taxonomy and fasta files download ")
-    print(" 2 - Statistical module: Scatter plot and world map from taxonomy files or queries ")
+    print(" 2 - Visualization module: scatter plot, sunburst plot and world map plot from taxonomy files or queries ")
     # print(" 3 - BLAST functions: create or use a profile and test your new database ")
-    print(" 3 - Taxonomy ID converter: convert a single or a file of taxonomy IDs to 6 level rank or viceversa ")
+    print(" 3 - Taxonomy ID converter: convert a single TaxID or a list of TaxIDs to 6 level rank (or viceversa) ")
     print("\n --- When you want to close ExTaxsI just press: " + color.BOLD +"CTRL + C" + color.END + " ---\n")
 
     while True:
