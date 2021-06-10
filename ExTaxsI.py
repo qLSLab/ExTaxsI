@@ -1676,6 +1676,7 @@ def scatterplot():
         out_handle.close()
         print("\nThere are %i species excluded by your filter, check them in the text file" % n_record_filter)
         logging.info("There are %i species with just one entry in the entire database!" % n_record_filter)
+        button_counter[-1] = int(button_counter[-1])-int(n_record_filter)
 
     print("Preparing to plot...")
 
