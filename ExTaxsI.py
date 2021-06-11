@@ -1538,6 +1538,7 @@ def scatterplot():
         #print(df_taxonomy)
         df_taxonomy = df_taxonomy.reindex(df_taxonomy.index.repeat(df_taxonomy['count'])).reset_index(drop=True)
         df_taxonomy = df_taxonomy[["Phylum", "Class", "Order", "Family", "Genus", "Species"]]
+        df_taxonomy = df_taxonomy.replace(to_replace='Missing', value='NA')
         taxonomy_list = df_taxonomy.values.tolist()
 
     # Sorting the taxonomy file
@@ -1564,7 +1565,7 @@ def scatterplot():
 
         if col > 0:
 
-            if "Missing" in taxonomy_array[:, col]:
+            if "NA" in taxonomy_array[:, col]:
                 # Searching for every NA in list and creating a list of their index
                 na_index = [i for i, v in enumerate(taxonomy_array[:, col]) if v == 'NA']
                 # Unique list of their parent taxa with NA as son
@@ -1578,7 +1579,7 @@ def scatterplot():
                 if name in color_list:
                     continue
 
-                if name == "Missing":
+                if name == "NA":
                     color_list[name] = "rgb(0, 0, 0)"
 
                 else:
@@ -1604,7 +1605,7 @@ def scatterplot():
                 group_taxa = ""
                 parent_taxa_text = ""
 
-                if organism == "Missing":
+                if organism == "NA":
                     point_color = "rgb(0, 0, 0)"
 
                 else:
@@ -1621,10 +1622,10 @@ def scatterplot():
 
             else:
 
-                if organism == "Missing":
+                if organism == "NA":
                     point_color = "rgb(0, 0, 0)"
                     parent_taxa_text = "({0})".format(", ".join(unique_parent_taxa_na))
-                    group_taxa = "Missing"
+                    group_taxa = "NA"
 
                 else:
                     group_taxa = taxonomy_array[list(taxonomy_array[:, col]).index(organism), col - 1]
