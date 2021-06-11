@@ -1474,12 +1474,6 @@ def scatterplot():
     for line in r_list:
         taxonomy_list.append(line[1].split(";"))
 
-    # Sorting the taxonomy file
-    for sorter in range(5, 0, -1):
-        taxonomy_list.sort(key=lambda li: li[sorter])
-
-    taxonomy_array = np.array(taxonomy_list)
-
     print("Now enter the minimum results value needed to be plotted for each taxonomy")
     filter_value = None
     while filter_value is None:
@@ -1530,6 +1524,28 @@ def scatterplot():
     # dict of rgb data to color our points based on their parent level taxonomy
     color_list = {}
 
+    if filter_value > 0 :
+        df_taxonomy = pd.DataFrame(taxonomy_list)
+        df_taxonomy.columns = ["Phylum", "Class", "Order", "Family", "Genus", "Species"]
+        df_taxonomy['count'] = 1
+        df_taxonomy = df_taxonomy.replace(to_replace='NA', value='Missing')
+        df_taxonomy = df_taxonomy.groupby(["Phylum", "Class", "Order", "Family", "Genus", "Species"])['count'].sum().reset_index()
+        df_excluded = df_taxonomy[df_taxonomy['count'] <= int(filter_value)]
+        df_excluded = df_excluded[['Species', 'count']]
+        print(f"There are {len(df_excluded)} species excluded by your filter--> {filter_value}, check them in the text file: {filter_title}")
+        df_excluded.to_csv(filter_title, sep='\t', index=False)
+        df_taxonomy = df_taxonomy[df_taxonomy['count'] > int(filter_value)]
+        #print(df_taxonomy)
+        df_taxonomy = df_taxonomy.reindex(df_taxonomy.index.repeat(df_taxonomy['count'])).reset_index(drop=True)
+        df_taxonomy = df_taxonomy[["Phylum", "Class", "Order", "Family", "Genus", "Species"]]
+        taxonomy_list = df_taxonomy.values.tolist()
+
+    # Sorting the taxonomy file
+    for sorter in range(5, 0, -1):
+        taxonomy_list.sort(key=lambda li: li[sorter])
+
+    taxonomy_array = np.array(taxonomy_list)
+
     # Initializing the list of traces for scatter plot
     trace = []
 
@@ -1538,6 +1554,7 @@ def scatterplot():
     # Initializing the button list
     button_counter = []
 
+    #print(taxonomy_list)
     for col in range(len(taxonomy_list[0])):
         pos_x = 0
         print("\nElaborating {0}{1}{2}".format(color.BOLD, taxa_level[col], color.END))
@@ -1547,7 +1564,7 @@ def scatterplot():
 
         if col > 0:
 
-            if "NA" in taxonomy_array[:, col]:
+            if "Missing" in taxonomy_array[:, col]:
                 # Searching for every NA in list and creating a list of their index
                 na_index = [i for i, v in enumerate(taxonomy_array[:, col]) if v == 'NA']
                 # Unique list of their parent taxa with NA as son
@@ -1561,7 +1578,7 @@ def scatterplot():
                 if name in color_list:
                     continue
 
-                if name == "NA":
+                if name == "Missing":
                     color_list[name] = "rgb(0, 0, 0)"
 
                 else:
@@ -1576,23 +1593,10 @@ def scatterplot():
 
                     color_list[name] = "rgb({0}, {1}, {2})".format(red, green, blue)
 
-        if filter_value > 0:
-            logging.info("Creating .txt file with filtered results ")
-            out_handle = open(filter_title, "w")
-            # Counts how many results are filtered
-            n_record_filter = 0
-
         for update_counter, organism in enumerate(taxonomy_counter.keys()):
             update_progress(update_counter, len(taxonomy_counter.keys()))  # Bar progress
             pos_x += 1
 
-            # When there is a filter value > 0 and the counter value is less or the same we will write it in the file
-            # and skip the tracing process
-            if taxonomy_counter[organism] <= filter_value >= 0:
-                logging.info("Writing a new one record in filter file")
-                out_handle.write("{0} ==> {1} records\n".format(organism, taxonomy_counter[organism]))
-                n_record_filter += 1
-                continue
 
             # If it's the first column we can't group our points based on their parent, because there is no parent
             if col == 0:
@@ -1600,7 +1604,7 @@ def scatterplot():
                 group_taxa = ""
                 parent_taxa_text = ""
 
-                if organism == "NA":
+                if organism == "Missing":
                     point_color = "rgb(0, 0, 0)"
 
                 else:
@@ -1617,10 +1621,10 @@ def scatterplot():
 
             else:
 
-                if organism == "NA":
+                if organism == "Missing":
                     point_color = "rgb(0, 0, 0)"
                     parent_taxa_text = "({0})".format(", ".join(unique_parent_taxa_na))
-                    group_taxa = "NA"
+                    group_taxa = "Missing"
 
                 else:
                     group_taxa = taxonomy_array[list(taxonomy_array[:, col]).index(organism), col - 1]
@@ -1672,11 +1676,10 @@ def scatterplot():
             )
         update_progress(len(taxonomy_counter.keys()), len(taxonomy_counter.keys()))
 
-    if filter_value > 0:
-        out_handle.close()
-        print("\nThere are %i species excluded by your filter, check them in the text file" % n_record_filter)
-        logging.info("There are %i species with just one entry in the entire database!" % n_record_filter)
-        button_counter[-1] = int(button_counter[-1])-int(n_record_filter)
+    # if filter_value > 0:
+    #     out_handle.close()
+    #     print("\nThere are %i species excluded by your filter, check them in the text file" % n_record_filter)
+    #     logging.info("There are %i species with just one entry in the entire database!" % n_record_filter)
 
     print("Preparing to plot...")
 
