@@ -1744,9 +1744,11 @@ def scatterplot():
     logging.info(" Plotting the traces")
     plot(figure, filename=plot_file_name)
 
+    print("\n----Scatterplot has been created!----\n")
+
     print('Choose one of the following options: \n ',
           '1: Plot another file or another query \n ',
-          '2: Back to statistical menu \n ',
+          '2: Back to visualization menu \n ',
           '3: Back to main menu \n ',
           '4: Close the best program you ever used \n ')
     plot_menu_choice = 0
@@ -2220,6 +2222,8 @@ def worldmap_plot():
 
     df_wm=pd.DataFrame(wm_all)
     df_wm.to_csv(os.path.join(efetch_call_settings['folder_path'],title_map+'_worldmap.tsv'), sep='\t',index=False)
+    df_wm_dropna=df_wm[df_wm['country'].notna()]
+    no_geo=int(len(df_wm_dropna))
 
     #megae dataframe coordinates for plot:
     if coordinates:
@@ -2258,8 +2262,7 @@ def worldmap_plot():
     cities = []
     names = []
     element_count = 0
-    print("")
-    print("Of %i records on NCBI, %i has no info about the location of sampling." % (efetch_call_settings['counter_id'],
+    print("\nOf %i records on NCBI, %i has info about the location of sampling." % (efetch_call_settings['counter_id'],
                                                                                      no_geo))
     time.sleep(2)
     print("\nWorld map loading...")
@@ -2382,7 +2385,6 @@ def worldmap_plot():
                 )
             )
 
-
 ###modify layout extaxsi:
     layout = go.Layout(
         title=go.layout.Title(
@@ -2418,11 +2420,44 @@ def worldmap_plot():
 
     if missing_part == 0:
         print("\n ---- World map plot has been created. ----\n")
-        time.sleep(30)
+        time.sleep(10)
 
     else:
         print("\n ---- World map plot has been created but some info are due to NCBI server errors. ----")
         print(" ---- Check log file for more details. ---- \n")
+
+    print('Choose one of the following options: \n ',
+          '1: Plot another file or another query \n ',
+          '2: Back to visualization menu \n ',
+          '3: Back to main menu \n ',
+          '4: Close the best program you ever used \n ')
+    plot_menu_choice = 0
+
+    while plot_menu_choice not in (1, 2, 3, 4):
+        try:
+            plot_menu_choice = int(input(">> Enter your choice: "))
+
+            if plot_menu_choice == 1:
+                clear()
+                worldmap_plot()
+
+            elif plot_menu_choice == 2:
+                clear()
+                statistical_module()
+
+            elif plot_menu_choice == 3:
+                clear()
+                main_menu()
+
+            elif plot_menu_choice == 4:
+                return
+
+            else:
+                print("Wrong choice, try again")
+
+        except ValueError:
+            print("Error, insert only the numeric value of your choice")
+
 
 def sunburst_plot():
     print("Enter one of the following options number\n"
@@ -2638,9 +2673,11 @@ def sunburst_plot():
     fig.update_layout(margin=dict(t=0, l=0, r=0, b=0))
     plot(fig, filename=plot_file_name)
 
+    print("\n----Sunburst has been created!----\n")
+
     print('\nChoose one of the following options: \n ',
           '1: Another plot from file or query \n ',
-          '2: Back to statistical menu \n ',
+          '2: Back to visualization menu \n ',
           '3: Back to main menu \n ',
           'CTRL + C: Close the best program you ever used \n ')
     plot_menu_choice = 0
