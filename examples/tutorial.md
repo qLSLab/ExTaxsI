@@ -58,6 +58,7 @@ This module allows to create from a NCBI query or from input files the following
 Pressing 1 from main menu, you will see the following question:
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1a.png)
 
+## Manual query
 Press m for manual query and press enter. \
 You will see the following output:
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1b.png)
@@ -73,3 +74,28 @@ Press 4 to obtain all the possible outputs.
 
 Pressing **the option 3** ExTaxsI will create a dataframe with all the genes available for the input query. If you want, you can create a PNG image with the top 10 most abundant genes.
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1d.png)
+
+## Query through a file
+You can submit to ExTaxsI your personal lists as accessions, TaxIDs or organism name. In the example directory you can find example files (with the correct format).
+In particular, you have to create a list of accessions, TaxIDs or organism name and save as csv or tsv format.
+The example files are the following:
+* A_accession_list_example.tsv
+* T_taxid_list_example.tsv
+* O_organism_list_example.tsv
+
+You can press A for a list of accession, T for a list of TaxIDs and O for a list of organism name.
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1e.png)
+
+Rembember to type the directory in which you saved the input file.
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1f.png)
+
+After giving the input file name with the directory in which it is saved, ExTaxsI will ask which type of output you want to download 
+(please see the previous images for a description of the options available).
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1g.png)
+
+Choosing **T option**, ExTaxsI will ask if you want a set of genes - press 0 if you want all.
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1h.png)
+
+As for A option, you must enter the file (with the directory) and choose the options form the menu.
+The same will happen with the O option.
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1i.png)
