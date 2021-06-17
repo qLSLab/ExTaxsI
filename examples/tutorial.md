@@ -62,3 +62,14 @@ Press m for manual query and press enter. \
 You will see the following output:
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1b.png)
 
+You can see example queries. Type ‘carabus convexus’ to follow this tutorial.
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1c.png)
+
+\
+
+As you can see, Database module has several options.
+Enter the number for the option that you prefer, all the outputs will be saved in 'download' directory.
+Press 4 to obtain all the possible outputs.
+
+Pressing **the option 3** ExTaxsI will create a dataframe with all the genes available for the input query. If you want, you can create a PNG image with the top 10 most abundant genes.
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1d.png)
