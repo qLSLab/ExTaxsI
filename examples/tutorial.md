@@ -99,3 +99,20 @@ Choosing **T option**, ExTaxsI will ask if you want a set of genes - press 0 if 
 As for A option, you must enter the file (with the directory) and choose the options form the menu.
 The same will happen with the O option.
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1i.png)
+
+Visualization module
+---------------------
+The Visualization module (option 2 from Main Menu) allows to create plots to visualize the taxonomy distribution of your query or your input files. In particular, it can generate:
+* scatter plot
+* world map plot
+* sunburst plot
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2a.png)
+
+## Scatter plot
+You can generate a scatterplot with the following options: a taxonomy file created with ExTaxsI (from download directory), doing a query or with an external tsv or csv file (see examples for details).
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2b.png)
+
+Using option 1 and 3, you can use as input a tsv or csv file with accessions and taxonomy (see the example directory), as we described into the **Database module**.
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2c.png)
+With option 2, you can digit your query (like in Database module, see the previous slides for details). Then ExTaxsI will create the file with accessions and taxonomy and it will plot it.
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2d.png)
