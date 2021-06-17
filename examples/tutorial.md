@@ -58,7 +58,7 @@ This module allows to create from a NCBI query or from input files the following
 Pressing 1 from main menu, you will see the following question:
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1a.png)
 
-## Manual query
+### Manual query
 Press m for manual query and press enter. \
 You will see the following output:
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1b.png)
@@ -75,7 +75,7 @@ Press 4 to obtain all the possible outputs.
 Pressing **the option 3** ExTaxsI will create a dataframe with all the genes available for the input query. If you want, you can create a PNG image with the top 10 most abundant genes.
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1d.png)
 
-## Query through a file
+### Query through a file
 You can submit to ExTaxsI your personal lists as accessions, TaxIDs or organism name. In the example directory you can find example files (with the correct format).
 In particular, you have to create a list of accessions, TaxIDs or organism name and save as csv or tsv format.
 The example files are the following:
