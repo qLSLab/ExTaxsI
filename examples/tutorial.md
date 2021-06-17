@@ -113,8 +113,54 @@ You can generate a scatterplot with the following options: a taxonomy file creat
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2b.png)
 
 Using option 1 and 3, you can use as input a tsv or csv file with accessions and taxonomy (see the example directory), as we described into the **Database module**.
+INSERIRE IN EXAMPLE IL FILE examples/ace2_taxid7742_taxonomy.tsv
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2c.png)
 With option 2, you can digit your query (like in Database module, see the previous slides for details). Then ExTaxsI will create the file with accessions and taxonomy and it will plot it.
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2d.png)
 
 For each option, it is possible to **filter the number of accessions for each species** to be considered to generate the plot. Extaxsi will ask using the _filter value_.
+
+INSERIRE SCATTEPLOT DI ESEMPIO
+
+## World map plot
+You can generate a world map plot with two modalities: manual query or through a file, see Database module tutorial for details (example files for input were provided in the tutorial folder).
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2e.png)
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2f.png)
+
+INSERIRE WORLD MAP PLOT DI ESEMPIO
+
+## Sun burst plot
+The modalities to create the sunburst plot are the same of scatterplot.
+Please for details refers to scatterplot examples tutorial.
+
+INSERIRE SUNBURST PLOT DI ESEMPIO
+
+Taxonomy ID Converted module
+---------------------
+The module 3 allows to convert your TaxIDs into a 6-rank taxonomy or obtained from an organism name the corresponding TaxID. The query can be done both with manual and input file query (see example directory for input files used in the tutorial).
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3a.png)
+
+## Manual query
+Choosing manual query, you can then decide if you want to convert TaxID to Taxonomy name (6-rank) or viceversa.
+**Warning**: If you submit the TaxID of higher rank than species (e.g. order) the following rank will be filled as NA (Not Assigned).
+
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3b.png)
+
+If you want to submit multiple TaxIDs use ‘+’ as a separator.
+Then ExTaxsI will return the complete taxonomy.
+
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3c.png)
+
+Choose option 2 to convert organism name to TaxID.
+If you want to submit multiple organisms use ‘+’ as a separator (space only between genus and species).
+Then ExTaxsI will return the corresponding TaxIDs.
+
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3d.png)
+
+## Query through an input file
+Press f for input file query. In particular, you can use a list of TaxIDs or a list of organism names (please see example directory for example input files).
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3e.png)
+Press T for a list of TaxIDs or O for a list of organism names (file must have tsv or csv extension).
+
+The tool if there is an header into the file for a correct interpretation, then it saves the results into the download directory.
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3f.png)
