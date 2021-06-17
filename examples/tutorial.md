@@ -116,3 +116,5 @@ Using option 1 and 3, you can use as input a tsv or csv file with accessions and
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2c.png)
 With option 2, you can digit your query (like in Database module, see the previous slides for details). Then ExTaxsI will create the file with accessions and taxonomy and it will plot it.
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2d.png)
+
+For each option, it is possible to **filter the number of accessions for each species** to be considered to generate the plot. Extaxsi will ask using the _filter value_.
