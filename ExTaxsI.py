@@ -1077,9 +1077,12 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
                 if input_list_type in ("o", "O"):  # File list of Organism
                     if search_list[0] == "0":
-                        search_index = "{0} OR {1}".format(search_list[1], search_list[2])
-                        for i in range(3, len(search_list)):
-                            search_index = "{0} OR {1}".format(search_index, search_list[i])
+                        if len(search_list) < 3:
+                            search_index = str(search_list[1])
+                        else:
+                            search_index = "{0} OR {1}".format(search_list[1], search_list[2])
+                            for i in range(3, len(search_list)):
+                                search_index = "{0} OR {1}".format(search_index, search_list[i])
 
                     else:
                         search_index = "({0} AND {1})".format(search_list[1], search_list[0])
@@ -1090,9 +1093,12 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                 elif input_list_type in ("t", "T"):  # File list of TaxIDs
 
                     if search_list[0] == "0":
-                        search_index = "{2}{0}{3} OR {2}{1}{3}".format(search_list[1], search_list[2], "txid","[Organism:noexp]")
-                        for i in range(3, len(search_list)):
-                            search_index = "{0} OR {2}{1}{3}".format(search_index, search_list[i], "txid", "[Organism:noexp]")
+                        if len(search_list) < 3:
+                            search_index = "{1}{0}{2}".format(search_list[1], "txid","[Organism:noexp]")
+                        else:
+                            search_index = "{2}{0}{3} OR {2}{1}{3}".format(search_list[1], search_list[2], "txid","[Organism:noexp]")
+                            for i in range(3, len(search_list)):
+                                search_index = "{0} OR {2}{1}{3}".format(search_index, search_list[i], "txid", "[Organism:noexp]")
 
                     else:
                         search_index = "({2} AND {1}{0}{3})".format(search_list[1], "txid", search_list[0], "[Organism:noexp]")
@@ -1102,9 +1108,11 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
                 else:  # File list of ACCESSIONS
                     search_index = [str(search_list[1])]
-
-                    for i in range(2, len(search_list)):
-                        search_index = "{0} or {1}".format(search_index, search_list[i])
+                    if len(search_list) < 3:
+                        search_index = str(search_list[1])
+                    else:
+                        for i in range(2, len(search_list)):
+                            search_index = "{0} or {1}".format(search_index, search_list[i])
 
                 # variable to prevent the stop of esearch if you get a momentary internet problem
                 server_error = 0
@@ -2281,7 +2289,6 @@ def worldmap_plot():
             textspecies='Accession count :'
             if len(list(element.org.split(','))) > 5:
                 chunks = [list(element.org.split(','))[x:x+5] for x in range(0, len(list(element.org.split(','))), 5)]
-                print(chunks)
                 for chunk in chunks:
                     textspecies += str(chunk)
                     textspecies += '<br>'
@@ -2291,7 +2298,7 @@ def worldmap_plot():
             textgene='Gene count :'
             if len(list(element.gene.split(','))) > 5:
                 chunks = [list(element.gene.split(','))[x:x+5] for x in range(0, len(list(element.gene.split(','))), 5)]
-                print(chunks)
+                #print(chunks)
                 for chunk in chunks:
                     textgene += str(chunk)
                     textgene += '<br>'
@@ -2301,7 +2308,7 @@ def worldmap_plot():
             namespecies=''
             if len(list(element.org.split(','))) > 3:
                 chunks = [list(element.org.split(','))[x:x+3] for x in range(0, len(list(element.org.split(','))), 3)]
-                print(chunks)
+                #print(chunks)
                 for chunk in chunks:
                     namespecies += str(chunk)
                     namespecies += '<br>'
@@ -2346,7 +2353,7 @@ def worldmap_plot():
             textspecies='Accession count :'
             if len(list(element.org.split(','))) > 5:
                 chunks = [list(element.org.split(','))[x:x+5] for x in range(0, len(list(element.org.split(','))), 5)]
-                print(chunks)
+                #print(chunks)
                 for chunk in chunks:
                     textspecies += str(chunk)
                     textspecies += '<br>'
@@ -2356,7 +2363,7 @@ def worldmap_plot():
             textgene='Gene count :'
             if len(list(element.gene.split(','))) > 5:
                 chunks = [list(element.gene.split(','))[x:x+5] for x in range(0, len(list(element.gene.split(','))), 5)]
-                print(chunks)
+                #print(chunks)
                 for chunk in chunks:
                     textgene += str(chunk)
                     textgene += '<br>'
