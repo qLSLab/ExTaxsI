@@ -29,8 +29,18 @@ Warning settings
 * If you have issues with HTTP connection, make sure to fill the NCBI keys in settings.ini
 * This tutorial is built only to demonstrate ExTaxsI functioning: results are not discussed and can change if you consider different versions of the Taxonomy DB or different moments for the download.
 
+Input files explanation
+---------------------
+* A
+* T
+* O
+
+
 Run ExTaxsI
 ---------------------
+Activate the conda environment with:
+$ conda activate myExTaxsIenv
+
 Run the script below to run the tool:
 $ python ExTaxsI.py 
 
