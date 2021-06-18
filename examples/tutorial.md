@@ -37,6 +37,9 @@ Input files explanation
 * T
 * O
 
+NCBI query explanation
+---------------------
+Nucleotide + Entrez query = https://www.ncbi.nlm.nih.gov/homologene/query-tips/
 
 Run ExTaxsI
 ---------------------
