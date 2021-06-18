@@ -15,10 +15,12 @@ or
 * Use git from command line:
 git clone https://github.com/qLSLab/ExTaxsI
 
-3) Create the conda environment with the script below, modifying 'myExTaxsIenv' with the name that you prefer: \
+3) Conda/mininconda download
+
+4) Create the conda environment with the script below, modifying 'myExTaxsIenv' with the name that you prefer: \
 conda create --name myExTaxsIenv --file requirements.txt --channel default --channel etetoolkit --channel plotly
 
-4) Modify settings.ini at:
+5) Modify settings.ini at:
 * Line 8: insert your entrez e-mail
 * Line 17: insert your entrez API key
 
