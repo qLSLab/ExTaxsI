@@ -348,135 +348,286 @@ def download_accession_taxonomy(counter_id, webenv, query_key, query, folder_pat
     missing_part = 0
 
     print("Downloading accession with taxonomy file")
-    for start in range(0, counter_id, batch_size):
-        logging.info(' Downloading accession with taxonomy file: %i of %i' % (start + 1, counter_id))
-
-        data = efetch_call(start, "nucleotide", counter_id, webenv, query_key, "gpc")
-
-        if data is None:
-            missing_part = 1
-            continue
-
+    if counter_id > 400000:
+        #print(webenv[0])
+        indice = 0
+        div_n = counter_id / 200000
+        list_counter = []
+        if div_n.is_integer():
+            for num in range(0, int(div_n)):
+                list_counter.append(200000)
         else:
+            for num in range(0, int(div_n)):
+                list_counter.append(200000)
+            list_counter.append(counter_id-200000*int(div_n))
 
-            for n in range(len(data)):  # For every downloaded entry
-                tax_id = None
+        #print(list_counter)
 
-                # if taxonomy id is not found, it will give NA for every taxonomy level
-                try:
-                    tax_id = ncbi.get_name_translator([data[n]["INSDSeq_organism"]])
+        for idx, mini_counter in enumerate(list_counter):
 
-                    if tax_id:
-                        tax_id = tax_id[data[n]["INSDSeq_organism"]][0]
+            for start in range(0, mini_counter, batch_size):
+                logging.info('\nDownloading accession with taxonomy file: %i of %i' % (start + 1, mini_counter))
 
-                    else:
-                        tax_id = None
+                data = efetch_call(start, "nucleotide", mini_counter, webenv[indice], query_key, "gpc")
 
-                except ValueError:
-                    logging.warning(" There is no taxonomy for %s \n" +
-                                    " searching through taxID" % data[n]["INSDSeq_organism"])
 
-                except sqlite3.OperationalError:
-                    logging.warning(" There is no taxonomy for %s \n " +
-                                    "searching through taxID" % data[n]["INSDSeq_organism"])
-
-                if tax_id is None:
-                    for z in range(len(data[n]["INSDSeq_feature-table"][0]["INSDFeature_quals"])):
-                        # Searching for taxonomy id in the xml type data
-                        try:
-                            if "taxon" in data[n]["INSDSeq_feature-table"][0]["INSDFeature_quals"][z]["INSDQualifier_value"]:
-                                tax_id = data[n]["INSDSeq_feature-table"][0]["INSDFeature_quals"][z][
-                                    "INSDQualifier_value"].replace("taxon:", "")
-                                break
-
-                        except KeyError:
-                            continue
-
-                if tax_id is None:
-                    logging.error(
-                        " There is no taxonomy for %s, ncbi.get_lineage exception" % data[n]["INSDSeq_organism"],
-                        exc_info=True)
-                    taxa_list = "NA;NA;NA;NA;NA"
-                    accession_list = "{0}\t{1};{2}{3}".format(data[n]["INSDSeq_accession-version"], taxa_list,
-                                                               data[n]["INSDSeq_organism"], "\n")
-                    if file_input is None:
-                        out_handle.write(accession_list)
-
-                    else:
-                        with open(file_input, 'a+') as a_writer:
-                            a_writer.write(accession_list)
+                if data is None:
+                    missing_part = 1
                     continue
-
-                try:
-                    lineage = ncbi.get_lineage(tax_id)  # Getting entire taxonomy from its taxonomy id
-
-                except ValueError:  # In case its id is not found
-                    logging.error(
-                        " There is no taxonomy for %s, ncbi.get_lineage exception" % data[n]["INSDSeq_organism"],
-                        exc_info=True)
-                    taxa_list = "NA;NA;NA;NA;NA"
-                    accession_list = "{0}\t{1};{2}{3}".format(data[n]["INSDSeq_accession-version"], taxa_list,
-                                                               data[n]["INSDSeq_organism"], "\n")
-                    if file_input is None:
-                        out_handle.write(accession_list)
-
-                    else:
-                        with open(file_input, 'a+') as a_writer:
-                            a_writer.write(accession_list)
-                    continue
-
-                except sqlite3.OperationalError as SQ:
-                    print("sqlite3 error")
-                    print(SQ)
-                    print(str(tax_id) + "\n")
-                    time.sleep(5)
-                    continue
-
-                phylum = clas = order = family = genus = "NA"  # Initializing
-
-                if lineage is not None:
-                    for z in range(len(lineage)):
-                        lineage_rank = ncbi.get_rank([lineage[z]])
-
-                        # Checking the rank and getting their name
-                        if "phylum" == lineage_rank[lineage[z]]:
-                            rank_tmp = ncbi.get_taxid_translator([lineage[z]])
-                            phylum = rank_tmp[lineage[z]]
-
-                        if "class" == lineage_rank[lineage[z]]:
-                            rank_tmp = ncbi.get_taxid_translator([lineage[z]])
-                            clas = rank_tmp[lineage[z]]
-
-                        if "order" == lineage_rank[lineage[z]]:
-                            rank_tmp = ncbi.get_taxid_translator([lineage[z]])
-                            order = rank_tmp[lineage[z]]
-
-                        if "family" == lineage_rank[lineage[z]]:
-                            rank_tmp = ncbi.get_taxid_translator([lineage[z]])
-                            family = rank_tmp[lineage[z]]
-
-                        if "genus" == lineage_rank[lineage[z]]:
-                            rank_tmp = ncbi.get_taxid_translator([lineage[z]])
-                            genus = rank_tmp[lineage[z]]
-
-                taxa_list = ";".join([phylum, clas, order, family, genus])
-                accession_list = "{0}\t{1};{2}{3}".format(data[n]["INSDSeq_accession-version"], taxa_list,
-                                                          data[n]["INSDSeq_organism"], "\n")
-                if file_input is None:
-                    out_handle.write(accession_list)
 
                 else:
-                    with open(file_input, 'a+') as a_writer:
-                        a_writer.write(accession_list)
 
-    if file_input is None:
-        out_handle.close()
+                    for n in range(len(data)):  # For every downloaded entry
+                        tax_id = None
+
+                        # if taxonomy id is not found, it will give NA for every taxonomy level
+                        try:
+                            tax_id = ncbi.get_name_translator([data[n]["INSDSeq_organism"]])
+
+                            if tax_id:
+                                tax_id = tax_id[data[n]["INSDSeq_organism"]][0]
+
+                            else:
+                                tax_id = None
+
+                        except ValueError:
+                            logging.warning(" There is no taxonomy for %s \n" +
+                                            " searching through taxID" % data[n]["INSDSeq_organism"])
+
+                        except sqlite3.OperationalError:
+                            logging.warning(" There is no taxonomy for %s \n " +
+                                            "searching through taxID" % data[n]["INSDSeq_organism"])
+
+                        if tax_id is None:
+                            for z in range(len(data[n]["INSDSeq_feature-table"][0]["INSDFeature_quals"])):
+                                # Searching for taxonomy id in the xml type data
+                                try:
+                                    if "taxon" in data[n]["INSDSeq_feature-table"][0]["INSDFeature_quals"][z]["INSDQualifier_value"]:
+                                        tax_id = data[n]["INSDSeq_feature-table"][0]["INSDFeature_quals"][z][
+                                            "INSDQualifier_value"].replace("taxon:", "")
+                                        break
+
+                                except KeyError:
+                                    continue
+
+                        if tax_id is None:
+                            logging.error(
+                                " There is no taxonomy for %s, ncbi.get_lineage exception" % data[n]["INSDSeq_organism"],
+                                exc_info=True)
+                            taxa_list = "NA;NA;NA;NA;NA"
+                            accession_list = "{0}\t{1};{2}{3}".format(data[n]["INSDSeq_accession-version"], taxa_list,
+                                                                       data[n]["INSDSeq_organism"], "\n")
+                            if file_input is None:
+                                out_handle.write(accession_list)
+
+                            else:
+                                with open(file_input, 'a+') as a_writer:
+                                    a_writer.write(accession_list)
+                            continue
+
+                        try:
+                            lineage = ncbi.get_lineage(tax_id)  # Getting entire taxonomy from its taxonomy id
+
+                        except ValueError:  # In case its id is not found
+                            logging.error(
+                                " There is no taxonomy for %s, ncbi.get_lineage exception" % data[n]["INSDSeq_organism"],
+                                exc_info=True)
+                            taxa_list = "NA;NA;NA;NA;NA"
+                            accession_list = "{0}\t{1};{2}{3}".format(data[n]["INSDSeq_accession-version"], taxa_list,
+                                                                       data[n]["INSDSeq_organism"], "\n")
+                            if file_input is None:
+                                out_handle.write(accession_list)
+
+                            else:
+                                with open(file_input, 'a+') as a_writer:
+                                    a_writer.write(accession_list)
+                            continue
+
+                        except sqlite3.OperationalError as SQ:
+                            print("sqlite3 error")
+                            print(SQ)
+                            print(str(tax_id) + "\n")
+                            time.sleep(5)
+                            continue
+
+                        phylum = clas = order = family = genus = "NA"  # Initializing
+
+                        if lineage is not None:
+                            for z in range(len(lineage)):
+                                lineage_rank = ncbi.get_rank([lineage[z]])
+
+                                # Checking the rank and getting their name
+                                if "phylum" == lineage_rank[lineage[z]]:
+                                    rank_tmp = ncbi.get_taxid_translator([lineage[z]])
+                                    phylum = rank_tmp[lineage[z]]
+
+                                if "class" == lineage_rank[lineage[z]]:
+                                    rank_tmp = ncbi.get_taxid_translator([lineage[z]])
+                                    clas = rank_tmp[lineage[z]]
+
+                                if "order" == lineage_rank[lineage[z]]:
+                                    rank_tmp = ncbi.get_taxid_translator([lineage[z]])
+                                    order = rank_tmp[lineage[z]]
+
+                                if "family" == lineage_rank[lineage[z]]:
+                                    rank_tmp = ncbi.get_taxid_translator([lineage[z]])
+                                    family = rank_tmp[lineage[z]]
+
+                                if "genus" == lineage_rank[lineage[z]]:
+                                    rank_tmp = ncbi.get_taxid_translator([lineage[z]])
+                                    genus = rank_tmp[lineage[z]]
+
+                        taxa_list = ";".join([phylum, clas, order, family, genus])
+                        accession_list = "{0}\t{1};{2}{3}".format(data[n]["INSDSeq_accession-version"], taxa_list,
+                                                                  data[n]["INSDSeq_organism"], "\n")
+                        if file_input is None:
+                            out_handle.write(accession_list)
+
+                        else:
+                            with open(file_input, 'a+') as a_writer:
+                                a_writer.write(accession_list)
+
+            indice += 1
+
+        if file_input is None:
+            out_handle.close()
+
+        else:
+            a_writer.close()
+
+        update_progress(counter_id, counter_id)
+        logging.info(' Accession with taxonomy file has been created')
 
     else:
-        a_writer.close()
+        for start in range(0, counter_id, batch_size):
+            logging.info(' Downloading accession with taxonomy file: %i of %i' % (start + 1, counter_id))
 
-    update_progress(counter_id, counter_id)
-    logging.info(' Accession with taxonomy file has been created')
+            data = efetch_call(start, "nucleotide", counter_id, webenv, query_key, "gpc")
+
+            if data is None:
+                missing_part = 1
+                continue
+
+            else:
+
+                for n in range(len(data)):  # For every downloaded entry
+                    tax_id = None
+
+                    # if taxonomy id is not found, it will give NA for every taxonomy level
+                    try:
+                        tax_id = ncbi.get_name_translator([data[n]["INSDSeq_organism"]])
+
+                        if tax_id:
+                            tax_id = tax_id[data[n]["INSDSeq_organism"]][0]
+
+                        else:
+                            tax_id = None
+
+                    except ValueError:
+                        logging.warning(" There is no taxonomy for %s \n" +
+                                        " searching through taxID" % data[n]["INSDSeq_organism"])
+
+                    except sqlite3.OperationalError:
+                        logging.warning(" There is no taxonomy for %s \n " +
+                                        "searching through taxID" % data[n]["INSDSeq_organism"])
+
+                    if tax_id is None:
+                        for z in range(len(data[n]["INSDSeq_feature-table"][0]["INSDFeature_quals"])):
+                            # Searching for taxonomy id in the xml type data
+                            try:
+                                if "taxon" in data[n]["INSDSeq_feature-table"][0]["INSDFeature_quals"][z]["INSDQualifier_value"]:
+                                    tax_id = data[n]["INSDSeq_feature-table"][0]["INSDFeature_quals"][z][
+                                        "INSDQualifier_value"].replace("taxon:", "")
+                                    break
+
+                            except KeyError:
+                                continue
+
+                    if tax_id is None:
+                        logging.error(
+                            " There is no taxonomy for %s, ncbi.get_lineage exception" % data[n]["INSDSeq_organism"],
+                            exc_info=True)
+                        taxa_list = "NA;NA;NA;NA;NA"
+                        accession_list = "{0}\t{1};{2}{3}".format(data[n]["INSDSeq_accession-version"], taxa_list,
+                                                                   data[n]["INSDSeq_organism"], "\n")
+                        if file_input is None:
+                            out_handle.write(accession_list)
+
+                        else:
+                            with open(file_input, 'a+') as a_writer:
+                                a_writer.write(accession_list)
+                        continue
+
+                    try:
+                        lineage = ncbi.get_lineage(tax_id)  # Getting entire taxonomy from its taxonomy id
+
+                    except ValueError:  # In case its id is not found
+                        logging.error(
+                            " There is no taxonomy for %s, ncbi.get_lineage exception" % data[n]["INSDSeq_organism"],
+                            exc_info=True)
+                        taxa_list = "NA;NA;NA;NA;NA"
+                        accession_list = "{0}\t{1};{2}{3}".format(data[n]["INSDSeq_accession-version"], taxa_list,
+                                                                   data[n]["INSDSeq_organism"], "\n")
+                        if file_input is None:
+                            out_handle.write(accession_list)
+
+                        else:
+                            with open(file_input, 'a+') as a_writer:
+                                a_writer.write(accession_list)
+                        continue
+
+                    except sqlite3.OperationalError as SQ:
+                        print("sqlite3 error")
+                        print(SQ)
+                        print(str(tax_id) + "\n")
+                        time.sleep(5)
+                        continue
+
+                    phylum = clas = order = family = genus = "NA"  # Initializing
+
+                    if lineage is not None:
+                        for z in range(len(lineage)):
+                            lineage_rank = ncbi.get_rank([lineage[z]])
+
+                            # Checking the rank and getting their name
+                            if "phylum" == lineage_rank[lineage[z]]:
+                                rank_tmp = ncbi.get_taxid_translator([lineage[z]])
+                                phylum = rank_tmp[lineage[z]]
+
+                            if "class" == lineage_rank[lineage[z]]:
+                                rank_tmp = ncbi.get_taxid_translator([lineage[z]])
+                                clas = rank_tmp[lineage[z]]
+
+                            if "order" == lineage_rank[lineage[z]]:
+                                rank_tmp = ncbi.get_taxid_translator([lineage[z]])
+                                order = rank_tmp[lineage[z]]
+
+                            if "family" == lineage_rank[lineage[z]]:
+                                rank_tmp = ncbi.get_taxid_translator([lineage[z]])
+                                family = rank_tmp[lineage[z]]
+
+                            if "genus" == lineage_rank[lineage[z]]:
+                                rank_tmp = ncbi.get_taxid_translator([lineage[z]])
+                                genus = rank_tmp[lineage[z]]
+
+                    taxa_list = ";".join([phylum, clas, order, family, genus])
+                    accession_list = "{0}\t{1};{2}{3}".format(data[n]["INSDSeq_accession-version"], taxa_list,
+                                                              data[n]["INSDSeq_organism"], "\n")
+                    if file_input is None:
+                        out_handle.write(accession_list)
+
+                    else:
+                        with open(file_input, 'a+') as a_writer:
+                            a_writer.write(accession_list)
+
+        if file_input is None:
+            out_handle.close()
+
+        else:
+            a_writer.close()
+
+        update_progress(counter_id, counter_id)
+        logging.info(' Accession with taxonomy file has been created')
 
     if missing_part == 0:
         print("\n ---- Accession with taxonomy file has been created. ----\n")
@@ -1268,7 +1419,7 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                     print("\nThe number of sequence found is: {0}{2}{1}".format(color.GREEN,
                                                                                 color.END,
                                                                                 counter_query))
-                    if counter_query > 1000000:
+                    if counter_query > 400000:
                         print(color.RED + "High number of records!" + color.END +
                               " It can take a while to load..")
 
@@ -1285,21 +1436,21 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
                         id_list = results["IdList"]
 
-                        if len(id_list) > 1000000:
+                        if len(id_list) > 400000:
                             webenv = []
                             query_key = []
 
-                            for index in range(0, len(id_list), 1000000):
+                            for index in range(0, len(id_list), 200000):
                                 ###
-                                print("index")
+                                print('Splitting query: ')
                                 print(index)
                                 ###
                                 mini_id_list = []
-                                end = min(index + 1000000, len(id_list))
+                                end = min(index + 200000, len(id_list))
 
                                 for id in range(index, end):
                                     mini_id_list.append(id_list[id])
-
+                                #print(len(mini_id_list))
                                 # Using epost we will lighten the burden on Entrez
                                 post_xml = Entrez.epost("nucleotide",
                                                         id=",".join(mini_id_list))
@@ -1307,8 +1458,10 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
 
                                 # Variable needed to use ncbi history feature
                                 webenv.append(results["WebEnv"])
+                                #print(webenv)
                                 query_key.append(results["QueryKey"])
-
+                            #print(webenv)
+                            #print(query_key)
                         else:
                             post_xml = Entrez.epost("nucleotide",
                                                     id=",".join(id_list))
