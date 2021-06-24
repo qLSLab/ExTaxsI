@@ -1134,7 +1134,7 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                         print("Attempt %i of 10" % server_error)
                         time.sleep(20)
 
-                    except http.client.IncompleteRead as err:
+                    except http.IncompleteRead as err:
                         print(err)
                         print("\n Retrying in a few seconds")
                         time.sleep(10)
@@ -1633,8 +1633,11 @@ def scatterplot():
 
     taxonomy_list = []
     for line in r_list:
-        taxonomy_list.append(line[1].split(";"))
-
+        if query_or_path == 3:
+            taxonomy_list.append(line[0].split(";"))
+        else:
+            taxonomy_list.append(line[1].split(";"))
+    #print(taxonomy_list)
     print("Now enter the minimum results value needed to be plotted for each taxonomy")
     filter_value = None
     while filter_value is None:
@@ -2293,93 +2296,199 @@ def worldmap_plot():
     logging.info(' Downloading info for world map')
 
     print("\nDownloading info from NCBI for world map")
-    for start in range(0, efetch_call_settings['counter_id'], batch_size):
 
-        logging.info(' Downloading data for world map: %i of %i' % (start + 1, efetch_call_settings['counter_id']))
-
-        data = efetch_call(start, "nuccore", efetch_call_settings['counter_id'], efetch_call_settings['webenv'],
-                           efetch_call_settings['query_key'], "gbc")
-
-        if data is None:
-            missing_part = 1
-            print("\nMissing part!")
-            continue
-
+    if efetch_call_settings['counter_id'] > 400000:
+        print(efetch_call_settings['webenv'][0])
+        indice = 0
+        div_n = efetch_call_settings['counter_id'] / 200000
+        list_counter = []
+        if div_n.is_integer():
+            for num in range(0, int(div_n)):
+                list_counter.append(200000)
         else:
+            for num in range(0, int(div_n)):
+                list_counter.append(200000)
+            list_counter.append(efetch_call_settings['counter_id']-200000*int(div_n))
 
-            try:
-                root = ET.fromstring(data)
-                INSDSeqs = root.findall('.//INSDSeq')
+        #print(list_counter)
 
-            except ET.ParseError as PE:
-                print("\nError while parsing at %i" % start)
-                print("Error: %s" % PE)
-                continue
+        for idx, mini_counter in enumerate(list_counter):
+            for start in range(0, mini_counter, batch_size):
 
-            for INSDSeq in INSDSeqs:  # Iter every entry of the INSDSeq xml file
-                INSDQualifiers = INSDSeq.findall('.//INSDSeq_feature-table/INSDFeature/INSDFeature_quals/INSDQualifier')
-                lat_lon = None
-                lat = "NA"
-                lon = "NA"
-                country = "NA"
-                gene = []
-                accession = "NA"
-                organism = "NA"
+                logging.info(' Downloading data for world map: %i of %i' % (start + 1, mini_counter))
 
-                for INSDSeq_tags in INSDSeq:
-                    if INSDSeq_tags.tag == "INSDSeq_primary-accession":
-                        accession = str(INSDSeq_tags.text)
+                data = efetch_call(start, "nuccore", mini_counter, efetch_call_settings['webenv'][indice],
+                                   efetch_call_settings['query_key'], "gbc")
 
-                for INSDQualifier in INSDQualifiers:
-
-                    if INSDQualifier[0].text == 'organism':
-                        organism = str(INSDQualifier[1].text)
-
-                    if INSDQualifier[0].text == 'lat_lon':
-                        lat_lon = INSDQualifier[1].text
-                        while(True):
-                            try:
-                                if "S" in lat_lon:
-                                    lat = 0 - float(lat_lon[0: lat_lon.index("S") - 1])
-
-                                    if "W" in lat_lon:
-                                        lon = 0 - float(lat_lon[lat_lon.index("S") + 1: lat_lon.index("W") - 1])
-                                        break
-                                    else:
-                                        lon = float(lat_lon[lat_lon.index("S") + 1: lat_lon.index("E") - 1])
-                                        break
-                                else:
-                                    lat = float(lat_lon[0: lat_lon.index("N") - 1])
-
-                                    if "W" in lat_lon:
-                                        lon = 0 - float(lat_lon[lat_lon.index("N") + 1: lat_lon.index("W") - 1])
-                                        break
-                                    else:
-                                        lon = float(lat_lon[lat_lon.index("N") + 1: lat_lon.index("E") - 1])
-                                        break
-                            except ValueError as err:
-                                break
-
-                    if INSDQualifier[0].text == 'country':
-                        country = str(INSDQualifier[1].text)
-                        if ":" in country:
-                            country = country.split(':')[0]
-
-                    if INSDQualifier[0].text == 'gene':
-                        gene = INSDQualifier[1].text
-                        genes.append(gene.replace(":", " "))
-
-                wm_all.append({'accession':accession,'org': organism, 'country': country, 'lat': lat, 'lon': lon, 'gene': gene})
-
-                if lat_lon is not None:
-                    coordinates.append({'org': organism, 'lat': lat, 'lon': lon, 'gene': gene})
-                    genes.append(gene)
-
-                elif country != "NA":
-                    countries.append({'org': organism, 'country': country, 'gene': gene})
+                if data is None:
+                    missing_part = 1
+                    print("\nMissing part!")
+                    continue
 
                 else:
-                    no_geo += 1
+
+                    try:
+                        root = ET.fromstring(data)
+                        INSDSeqs = root.findall('.//INSDSeq')
+
+                    except ET.ParseError as PE:
+                        print("\nError while parsing at %i" % start)
+                        print("Error: %s" % PE)
+                        continue
+
+                    for INSDSeq in INSDSeqs:  # Iter every entry of the INSDSeq xml file
+                        INSDQualifiers = INSDSeq.findall('.//INSDSeq_feature-table/INSDFeature/INSDFeature_quals/INSDQualifier')
+                        lat_lon = None
+                        lat = "NA"
+                        lon = "NA"
+                        country = "NA"
+                        gene = []
+                        accession = "NA"
+                        organism = "NA"
+
+                        for INSDSeq_tags in INSDSeq:
+                            if INSDSeq_tags.tag == "INSDSeq_primary-accession":
+                                accession = str(INSDSeq_tags.text)
+
+                        for INSDQualifier in INSDQualifiers:
+
+                            if INSDQualifier[0].text == 'organism':
+                                organism = str(INSDQualifier[1].text)
+
+                            if INSDQualifier[0].text == 'lat_lon':
+                                lat_lon = INSDQualifier[1].text
+                                while(True):
+                                    try:
+                                        if "S" in lat_lon:
+                                            lat = 0 - float(lat_lon[0: lat_lon.index("S") - 1])
+
+                                            if "W" in lat_lon:
+                                                lon = 0 - float(lat_lon[lat_lon.index("S") + 1: lat_lon.index("W") - 1])
+                                                break
+                                            else:
+                                                lon = float(lat_lon[lat_lon.index("S") + 1: lat_lon.index("E") - 1])
+                                                break
+                                        else:
+                                            lat = float(lat_lon[0: lat_lon.index("N") - 1])
+
+                                            if "W" in lat_lon:
+                                                lon = 0 - float(lat_lon[lat_lon.index("N") + 1: lat_lon.index("W") - 1])
+                                                break
+                                            else:
+                                                lon = float(lat_lon[lat_lon.index("N") + 1: lat_lon.index("E") - 1])
+                                                break
+                                    except ValueError as err:
+                                        break
+
+                            if INSDQualifier[0].text == 'country':
+                                country = str(INSDQualifier[1].text)
+                                if ":" in country:
+                                    country = country.split(':')[0]
+
+                            if INSDQualifier[0].text == 'gene':
+                                gene = INSDQualifier[1].text
+                                genes.append(gene.replace(":", " "))
+
+                        wm_all.append({'accession':accession,'org': organism, 'country': country, 'lat': lat, 'lon': lon, 'gene': gene})
+
+                        if lat_lon is not None:
+                            coordinates.append({'org': organism, 'lat': lat, 'lon': lon, 'gene': gene})
+                            genes.append(gene)
+
+                        elif country != "NA":
+                            countries.append({'org': organism, 'country': country, 'gene': gene})
+
+                        else:
+                            no_geo += 1
+            indice += 1
+    else:
+        for start in range(0, efetch_call_settings['counter_id'], batch_size):
+
+            logging.info(' Downloading data for world map: %i of %i' % (start + 1, efetch_call_settings['counter_id']))
+
+            data = efetch_call(start, "nuccore", efetch_call_settings['counter_id'], efetch_call_settings['webenv'],
+                               efetch_call_settings['query_key'], "gbc")
+
+            if data is None:
+                missing_part = 1
+                print("\nMissing part!")
+                continue
+
+            else:
+
+                try:
+                    root = ET.fromstring(data)
+                    INSDSeqs = root.findall('.//INSDSeq')
+
+                except ET.ParseError as PE:
+                    print("\nError while parsing at %i" % start)
+                    print("Error: %s" % PE)
+                    continue
+
+                for INSDSeq in INSDSeqs:  # Iter every entry of the INSDSeq xml file
+                    INSDQualifiers = INSDSeq.findall('.//INSDSeq_feature-table/INSDFeature/INSDFeature_quals/INSDQualifier')
+                    lat_lon = None
+                    lat = "NA"
+                    lon = "NA"
+                    country = "NA"
+                    gene = []
+                    accession = "NA"
+                    organism = "NA"
+
+                    for INSDSeq_tags in INSDSeq:
+                        if INSDSeq_tags.tag == "INSDSeq_primary-accession":
+                            accession = str(INSDSeq_tags.text)
+
+                    for INSDQualifier in INSDQualifiers:
+
+                        if INSDQualifier[0].text == 'organism':
+                            organism = str(INSDQualifier[1].text)
+
+                        if INSDQualifier[0].text == 'lat_lon':
+                            lat_lon = INSDQualifier[1].text
+                            while(True):
+                                try:
+                                    if "S" in lat_lon:
+                                        lat = 0 - float(lat_lon[0: lat_lon.index("S") - 1])
+
+                                        if "W" in lat_lon:
+                                            lon = 0 - float(lat_lon[lat_lon.index("S") + 1: lat_lon.index("W") - 1])
+                                            break
+                                        else:
+                                            lon = float(lat_lon[lat_lon.index("S") + 1: lat_lon.index("E") - 1])
+                                            break
+                                    else:
+                                        lat = float(lat_lon[0: lat_lon.index("N") - 1])
+
+                                        if "W" in lat_lon:
+                                            lon = 0 - float(lat_lon[lat_lon.index("N") + 1: lat_lon.index("W") - 1])
+                                            break
+                                        else:
+                                            lon = float(lat_lon[lat_lon.index("N") + 1: lat_lon.index("E") - 1])
+                                            break
+                                except ValueError as err:
+                                    break
+
+                        if INSDQualifier[0].text == 'country':
+                            country = str(INSDQualifier[1].text)
+                            if ":" in country:
+                                country = country.split(':')[0]
+
+                        if INSDQualifier[0].text == 'gene':
+                            gene = INSDQualifier[1].text
+                            genes.append(gene.replace(":", " "))
+
+                    wm_all.append({'accession':accession,'org': organism, 'country': country, 'lat': lat, 'lon': lon, 'gene': gene})
+
+                    if lat_lon is not None:
+                        coordinates.append({'org': organism, 'lat': lat, 'lon': lon, 'gene': gene})
+                        genes.append(gene)
+
+                    elif country != "NA":
+                        countries.append({'org': organism, 'country': country, 'gene': gene})
+
+                    else:
+                        no_geo += 1
 
     df_wm=pd.DataFrame(wm_all)
     df_wm.to_csv(os.path.join(efetch_call_settings['folder_path'],title_map+'_worldmap.tsv'), sep='\t',index=False)
@@ -2689,7 +2798,7 @@ def sunburst_plot():
             continue
 
         if query_or_path == 3:
-            taxonomy_list.append(row)
+            taxonomy_list.append(row[0].split(";"))
         else:
             taxonomy_list.append(row[1].split(";"))
 
