@@ -14,12 +14,12 @@ ExTaxsI has multiple functions:
 
 * VISUALIZATION: creation of interactive plots, such as ScatterPlot, SunBurst and world map, starting from dbs output or external sources.
 
-* ID CONVERSION: conversion of taxID to 6ranks taxonomy and vice versa; can convert single manual inputs, take multiple inputs joined together by a plus sign or tsv/csv file with a list of taxIDs.
+* ID CONVERSION: conversion of taxID into 6ranks taxonomy and vice versa; it can convert single manual inputs, takes multiple inputs joined together by a plus sign or tsv/csv file with a list of taxIDs.
 
 Hardware requirements
 ---------------------
 Minimum hardware requirements:
-no specific requirements are needed for ExTaxsI installation, otherwise for the correct functioning of the software we suggest the following:
+no specific requirements are needed for ExTaxsI installation, however for the correct functioning of the software we suggest the following:
 
 * RAM: 4GB
 * CPU: quad-core or more.
@@ -39,10 +39,10 @@ To install external libraries open a terminal (prompt for windows users) in the 
 Now that you are inside the ExTaxsI-folder, if you are a conda user (best option), run the following command:
 * conda create --name myExTaxsIenv --file requirements.txt --channel default --channel etetoolkit --channel plotly
 
-Otherwise (not recommended), run the following command:
+Otherwise (less recommended), run the following command:
 * pip3 install -r pip_requirements.txt
 
-and plotly-orca can be installed using the following instructions:
+It is also required to install plotly-orca using the following instructions:
 https://github.com/plotly/orca
 
 **3- CUSTOMIZE YOUR SETTINGS:**
@@ -51,7 +51,7 @@ Before starting to use ExTaxsI, the settings.ini file should be customized:
 * entrez_email: insert your email;
 * api_key: insert your api_key created from NCBI;
 
-In order to not overload servers, by entering your API key in the setting file, NCBI admits maximum 10 requests/second for all activity from that key.
+In order to not overload the NCBI servers, by entering your API key in the setting file, NCBI admits maximum 10 requests/second for all activities from that key.
 
 https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
 
@@ -96,7 +96,7 @@ Input can be entered manually or as CSV/TSV file:
 
 * by choosing the manual input you’ll display a list of helpful TAGS to build your query
 
-* otherwise if you choose to upload a CSV/TSV file,  you must specify which kind of list this one contains (Organism name list, taxonomy ID list or accession list); you may also narrowing down the search supplementing your query with genes or other details.
+* otherwise if you choose to upload a CSV/TSV file,  you must specify which kind of list this one contains (Organism name list, taxonomy ID list or accession list); you may also narrow down the search supplementing your query with genes or other details.
 
 __Note__: list values must be placed within a single column (the first one).
 
@@ -130,7 +130,7 @@ Output file folder: download
 
 **Module3:  Taxonomy ID converter.**
 
-You can convert taxonomy ids from a file or by manual input into full 6 ranks taxonomy.
+You can convert taxonomy ids from a file or by manual input into full 6 main ranks taxonomy.
 
 __Note__: list values must be placed within the first column.
 
