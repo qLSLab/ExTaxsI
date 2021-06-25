@@ -305,19 +305,51 @@ def download_fasta(counter_id, webenv, query_key, query, folder_path, file_input
     missing_part = 0
 
     print("Downloading fasta sequence")
-    for start in range(0, counter_id, batch_size):
-        logging.info('Downloading fasta sequence: %i of %i' % (start + 1, counter_id))
-        data = efetch_call(start, "nucleotide", counter_id, webenv, query_key, "fasta")
-
-        if data is None:
-            missing_part = 1
-
-        elif file_input is None:
-            out_handle.write(data)
-
+    if counter_id > 400000:
+        #print(webenv[0])
+        indice = 0
+        div_n = counter_id / 200000
+        list_counter = []
+        if div_n.is_integer():
+            for num in range(0, int(div_n)):
+                list_counter.append(200000)
         else:
-            with open(file_input, 'a+') as a_writer:
-                a_writer.write("\n{0}".format(data))
+            for num in range(0, int(div_n)):
+                list_counter.append(200000)
+            list_counter.append(counter_id-200000*int(div_n))
+
+        #print(list_counter)
+
+        for idx, mini_counter in enumerate(list_counter):
+
+            for start in range(0, mini_counter, batch_size):
+                logging.info('Downloading fasta sequence: %i of %i' % (start + 1, mini_counter))
+                data = efetch_call(start, "nucleotide", mini_counter, webenv[indice], query_key, "fasta")
+
+                if data is None:
+                    missing_part = 1
+
+                elif file_input is None:
+                    out_handle.write(data)
+
+                else:
+                    with open(file_input, 'a+') as a_writer:
+                        a_writer.write("\n{0}".format(data))
+            indice += 1
+    else:
+        for start in range(0, counter_id, batch_size):
+            logging.info('Downloading fasta sequence: %i of %i' % (start + 1, counter_id))
+            data = efetch_call(start, "nucleotide", counter_id, webenv, query_key, "fasta")
+
+            if data is None:
+                missing_part = 1
+
+            elif file_input is None:
+                out_handle.write(data)
+
+            else:
+                with open(file_input, 'a+') as a_writer:
+                    a_writer.write("\n{0}".format(data))
 
     if file_input is None:
         out_handle.close()
@@ -1951,10 +1983,78 @@ def download_gene_markers(counter, webenv, query_key, search_term, path, file):
     batch_size = 200
     genes_raw = []
 
-    if isinstance(webenv, str):
+    if counter > 400000:
+        #print(webenv[0])
+        indice = 0
+        div_n = counter / 200000
+        list_counter = []
+        if div_n.is_integer():
+            for num in range(0, int(div_n)):
+                list_counter.append(200000)
+        else:
+            for num in range(0, int(div_n)):
+                list_counter.append(200000)
+            list_counter.append(counter_id-200000*int(div_n))
+
+        #print(list_counter)
+
+        for idx, mini_counter in enumerate(list_counter):
+
+            for start in range(0, mini_counter, batch_size):
+                logging.info(' Downloading data for gene markers: %i of %i' % (start + 1, mini_counter))
+                data = efetch_call(start, "nuccore", mini_counter, webenv[indice], query_key, "gbc")
+
+                if data is None:
+                    print("\nMissing part!")
+                    continue
+
+                else:
+                    try:
+                        root = ET.fromstring(data)
+                        INSDSeqs = root.findall('.//INSDSeq')
+
+                        for INSDSeq in INSDSeqs:  # Iter every entry of our download
+                            INSDQualifiers = INSDSeq.findall(
+                                './/INSDSeq_feature-table/INSDFeature/INSDFeature_quals/INSDQualifier')
+
+                            no_double_gene = []
+
+                            for INSDQualifier in INSDQualifiers:
+                                '''
+                                if INSDQualifier[0].text == 'organism':
+                                o anche accession per sapere da dove son stati presi i dati
+                                    organism = str(INSDQualifier[1].text)
+                                '''
+
+                                if INSDQualifier[0].text == 'gene':
+
+                                    if INSDQualifier[1].text in no_double_gene:
+                                        continue
+                                    else:
+                                        no_double_gene.append(INSDQualifier[1].text)
+                                        genes_raw.append(INSDQualifier[1].text)
+
+                    except ET.ParseError as PE:
+                        print("Error while parsing at %i \n" % start)
+                        print("Error: %s" % PE)
+                        root = None
+                        INSDSeqs = None
+                        INSDQualifiers = None
+                        continue
+
+                    except MemoryError as ME:
+                        print("Error while parsing at %i \n" % start)
+                        print("Error: %s" % ME)
+                        root = None
+                        INSDSeqs = None
+                        INSDQualifiers = None
+                        continue
+            indice +=1
+
+    else:
         for start in range(0, counter, batch_size):
 
-            logging.info(' Downloading data for world map: %i of %i' % (start + 1, counter))
+            logging.info(' Downloading data for gene markers: %i of %i' % (start + 1, counter))
             data = efetch_call(start, "nuccore", counter, webenv, query_key, "gbc")
 
             if data is None:
@@ -2002,58 +2102,6 @@ def download_gene_markers(counter, webenv, query_key, search_term, path, file):
                     INSDSeqs = None
                     INSDQualifiers = None
                     continue
-    else:
-        for i in range(len(webenv)):
-
-
-            if i == (len(webenv) - 1):
-                end = counter - (i * 1000000)
-            else:
-                end = 1000000
-
-            for start in range(0, end, batch_size):
-                logging.info(' Downloading data for world map: %i of %i' % (start + 1, end))
-                data = efetch_call(start,
-                                   "nuccore",
-                                   end,
-                                   webenv[i],
-                                   query_key[i],
-                                   "gbc")
-
-                if data is None:
-                    print("\nMissing part!")
-                    continue
-
-                else:
-
-                    try:
-                        root = ET.fromstring(data)
-                        INSDSeqs = root.findall('.//INSDSeq')
-
-                        for INSDSeq in INSDSeqs:  # Iter every entry of our download
-                            INSDQualifiers = INSDSeq.findall('.//INSDSeq_feature-table/INSDFeature/INSDFeature_quals/INSDQualifier')
-                            no_double_gene = []
-
-                            for INSDQualifier in INSDQualifiers:
-
-                                if INSDQualifier[0].text == 'gene':
-                                    if INSDQualifier[1].text in no_double_gene:
-                                        continue
-
-                                    else:
-                                        no_double_gene.append(INSDQualifier[1].text)
-                                        genes_raw.append(INSDQualifier[1].text)
-
-                    except ET.ParseError as PE:
-                        print("Error while parsing at %i \n" % start)
-                        print("Error: %s" % PE)
-                        root = None
-                        INSDSeqs = None
-                        print("Error: %s" % ME)
-                        root = None
-                        INSDSeqs = None
-                        INSDQualifiers = None
-                        continue
 
     genes = []
 
