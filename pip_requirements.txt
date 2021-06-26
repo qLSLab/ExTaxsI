@@ -9,3 +9,4 @@ nose
 plotly
 ete3
 psutil
+requests
