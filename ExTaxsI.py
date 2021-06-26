@@ -1091,7 +1091,8 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                             download_gene_markers(counter_queries, web_env, key, search_index, directory, file_name)
                             time.sleep(2)
 
-                    merge_gene_top10(None, marker_folder)
+                    parentdir = os.getcwd()
+                    merge_gene_top10(None, marker_folder,parentdir)
 
                 if len(file_list) > 2500:  # NCBI rejects more than 2500 - 2700 terms in a unique call so we will split them
                     search_list = [file_list[0]]
@@ -1591,8 +1592,8 @@ def database_module(plot_or_not, file_pos, file, choice, output_name):
                                               search_term,
                                               directory,
                                               None,)
-
-                        merge_gene_top10(search_term,directory)
+                        parentdir = os.getcwd()
+                        merge_gene_top10(search_term,directory,parentdir)
 
                     if choice == 5:
                         clear()
@@ -2212,7 +2213,7 @@ def download_gene_markers(counter, webenv, query_key, search_term, path, file):
     out_handle.close()
     print("File created at %s\n" % file)
 
-def merge_gene_top10(search_term,path):
+def merge_gene_top10(search_term,path,parent):
     ###this part will create a unique dataframe from the multiple files retrieved by list-file search:
     while(True):
         try:
@@ -2252,22 +2253,29 @@ def merge_gene_top10(search_term,path):
                     graph = top10_graph(' list ',df_top['count'],df_top['index'])
                     graph.write_image('top_used_genes.png')
                 print('\nfinal_gene_df.tsv and top-plot created\n\n')
+                os.chdir(parent)
                 break
             elif merge_query[0] in noChoice :
-                plot_query=input(str("\n\nWould you like to plot the top-10 genes?[y/n]"))
+                plot_query=input(str("\n\nWould you like to plot the top-10 genes (use only in case of manual query)?[y/n]"))
                 if plot_query[0] in yesChoice :
-                    os.chdir(path)
-                    dfplot = pd.read_csv(str(search_term.replace("(", "").replace(")", ""))+'_gene_list.tsv',  sep='\t', names=['gene','count'],skiprows=1)
-                    if len(dfplot) >= 10:
-                        df_top10 = dfplot.head(10).sort_values(by=['count'])
-                        graph = top10_graph(search_term,df_top10['count'],df_top10['gene'])
-                        graph.write_image('top10_genes_'+str(search_term.replace("(", "").replace(")", ""))+'.png')
-                    else:
-                        df_top10 = dfplot.sort_values(by=['count'])
-                        graph = top10_graph(search_term,df_top10['count'],df_top10['gene'])
-                        graph.write_image('top_used_genes_'+str(search_term.replace("(", "").replace(")", ""))+'.png')
-                    print('\n\nTOP-10 plotted!!!')
-                    break
+                    try:
+                        os.chdir(path)
+                        dfplot = pd.read_csv(str(search_term.replace("(", "").replace(")", ""))+'_gene_list.tsv',  sep='\t', names=['gene','count'],skiprows=1)
+                        if len(dfplot) >= 10:
+                            df_top10 = dfplot.head(10).sort_values(by=['count'])
+                            graph = top10_graph(search_term,df_top10['count'],df_top10['gene'])
+                            graph.write_image('top10_genes_'+str(search_term.replace("(", "").replace(")", ""))+'.png')
+                        else:
+                            df_top10 = dfplot.sort_values(by=['count'])
+                            graph = top10_graph(search_term,df_top10['count'],df_top10['gene'])
+                            graph.write_image('top_used_genes_'+str(search_term.replace("(", "").replace(")", ""))+'.png')
+                        print('\n\nTOP-10 plotted!!!')
+                        os.chdir(parent)
+                        break
+                    except AttributeError as err:
+                        print("\nMerge TOP-10 is not possible with file query, please select yes to the first query if you want the TOP10 plot!\n")
+                        os.chdir(parent)
+                        break
                 elif plot_query[0] in noChoice:
                     break
         except IndexError as err:
