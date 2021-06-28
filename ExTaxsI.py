@@ -1995,7 +1995,7 @@ def download_gene_markers(counter, webenv, query_key, search_term, path, file):
         else:
             for num in range(0, int(div_n)):
                 list_counter.append(200000)
-            list_counter.append(counter_id-200000*int(div_n))
+            list_counter.append(counter-200000*int(div_n))
 
         #print(list_counter)
 
@@ -2486,7 +2486,7 @@ def worldmap_plot():
                     lat_lon = None
                     lat = "NA"
                     lon = "NA"
-                    country = "NA"
+                    country = np.nan
                     gene = []
                     accession = "NA"
                     organism = "NA"
