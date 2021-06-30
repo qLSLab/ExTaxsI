@@ -12,9 +12,9 @@ ExTaxsI has multiple functions:
 
 * DATABASE: creation of multi FASTA files composed by nucleotide sequences, taxonomic lists, genes and accessions, starting from manual inputs or csv/tsv files.
 
-* VISUALIZATION: creation of interactive plots, such as ScatterPlot, SunBurst and world map, starting from dbs output or external sources.
+* VISUALIZATION: creation of interactive plots, such as scatter plot, sun burst plot and world map, starting from DATABASE output or external sources.
 
-* ID CONVERSION: conversion of taxID into 6ranks taxonomy and vice versa; it can convert single manual inputs, takes multiple inputs joined together by a plus sign or tsv/csv file with a list of taxIDs.
+* ID CONVERSION: conversion of TaxID into 6-ranks taxonomy and vice versa; it can convert single manual inputs, takes multiple inputs joined together by a plus sign or tsv/csv file with a list of taxIDs.
 
 Hardware requirements
 ---------------------
