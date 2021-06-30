@@ -159,7 +159,7 @@ Contacts
 * Name: __Giulia Agostinetto__
 * e-mail: __g.agostinetto@campus.unimib.it__
 * Name: __Alberto Brusati__
-* e-mail: __alberto.brusati@gmail.com__
+* e-mail: __a.brusati@auxologico.it__
 * Name: __Anna Sandionigi__
 * e-mail: __anna.sandionigi@unimib.it__
 
