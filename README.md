@@ -75,6 +75,8 @@ Now that you are in the right directory, run the following command to start:
 
 * python ExTaxsI.py
 
+Please visit the tutorial directory of this Github page for a step-by-step installation and example usage.
+
 Operating instructions
 ----------------------
 
