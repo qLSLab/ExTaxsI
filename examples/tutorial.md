@@ -1,4 +1,4 @@
-ExTaxsI Tutorial
+ExTaxsI step-bystep tutorial
 =======
 
 This is the tutorial for ExTaxsI tool. The procedures described were run with the files in the examples directory of our Github page. \
