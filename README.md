@@ -53,9 +53,9 @@ Before starting to use ExTaxsI, the settings.ini file should be customized:
 
 In order to not overload the NCBI servers, by entering your API key in the setting file, NCBI admits maximum 10 requests/second for all activities from that key.
 
-https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
+Here is the reference: https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
 
-How to run extaxsi
+How to run ExTaxsI
 ------------------
 Open a terminal and go to the ExTaxsI folder directory by running the entire path:
 
@@ -85,20 +85,12 @@ The first time that you run ExTaxsI, the program will take time to download the 
 Choose the module you’re interested in by entering the correlated number:
 
 1. Database creation module: taxonomy and FASTA files download;
-2. Statistical module: ScatterPlot and world map from taxonomy files or queries;
-3. Taxonomy IDs converter: conversion of taxID to 6ranks taxonomy and vice versa;
+2. Visualization module: scatter plot and world map plot from taxonomy files or queries;
+3. Taxonomy IDs converter: conversion of taxID to 6-ranks taxonomy and vice versa;
 
 
 **Module 1: Database creation module;
 taxonomy and fasta files download.**
-
-Input can be entered manually or as CSV/TSV file:
-
-* by choosing the manual input you’ll display a list of helpful TAGS to build your query
-
-* otherwise if you choose to upload a CSV/TSV file,  you must specify which kind of list this one contains (Organism name list, taxonomy ID list or accession list); you may also narrow down the search supplementing your query with genes or other details.
-
-__Note__: list values must be placed within a single column (the first one).
 
 When organism name list, Ids or accessions are less than 2500 the search key is composed by a single query, otherwise query will be splitted in groups of 2500 generating temporary files, which would be deleted at the end of the process.
 
@@ -117,11 +109,11 @@ Module2’s required data, can be uploaded in several ways:
 * uploading file from external sources containing taxonomy lists.
 
 It's possible to do 3 types of interactive plots:
-* ScatterPlot: uses taxonomy as input to produce a graph that indicates the quantity of each individual taxonomic unit and which taxons are present;
+* scatter plot: uses taxonomy as input to produce a graph that indicates the quantity of each individual taxonomic unit and which taxa are present;
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/aves%20scatterplot%20COX1.png)
-* SunBurst: uses taxonomy but creates an expansion pie that allows to explore taxonomy in depth with less weight on the quantity of each individual taxonomic unit;
+* sunburst plot: uses taxonomy but creates an expansion pie that allows to explore taxonomy in depth with less weight on the quantity of each individual taxonomic unit;
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/sunburst%20odonata.png)
-* world map: uses the phylogeographic data to produce a map indicating the position of each individual species;
+* world map plot: uses the country metadata of accessions data to produce a map indicating the position of each taxon found;
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/worldmap.png)  
 
 Output file format: html
@@ -130,7 +122,7 @@ Output file folder: download
 
 **Module3:  Taxonomy ID converter.**
 
-You can convert taxonomy ids from a file or by manual input into full 6 main ranks taxonomy.
+You can convert taxonomy ids from a file or by manual input into full 6 main ranks taxonomy (phylum;class;order;family;genus;species).
 
 __Note__: list values must be placed within the first column.
 
@@ -162,17 +154,18 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 Contact information for the distributor or programmer
 -----------------------------------------------------
-* Name: __Anna Sandionigi__
-* e-mail: __anna.sandionigi@unimib.it__
 * Name: __Giulia Agostinetto__
 * e-mail: __g.agostinetto@campus.unimib.it__
+* Name: __Alberto Brusati__
+* e-mail: __alberto.brusati@gmail.com__
+* Name: __Anna Sandionigi__
+* e-mail: __anna.sandionigi@unimib.it__
 
 Credits and acknowledgments
 ---------------------------
 
-Throughout the creation of this tool, we relied heavily on contributions from professors and college students.  Their input was invaluable, and we want to take a moment to thank them and recognize them for all of their hard work:
-* __Dario Pescini__, Associate professor of University of Milan Bicocca.
-* __Giulia Agostinetto__, PhD student of University of Milan Bicocca.
-* __Adam Chahed__, student of University of Milan Bicocca.
-* __Alberto Brusati__, student of University of Milan Bicocca.
-* __Elena Parladori__, student of university of Milan Bicocca.
+Throughout the creation of this tool, we relied heavily on contributions from professors and college students. Their input was invaluable, and we want to take a moment to thank them and recognize them for all of their hard work:
+* __Adam Chahed__, Ex-student at University of Milano-Bicocca.
+* __Elena Parladori__, Ex-student at University of Milano-Bicocca.
+* __Bachir Balech__, Researcher at CNR IBIOM.
+* __Dario Pescini__, Associate Professor at University of Milano-Bicocca.
