@@ -24,7 +24,7 @@ no specific requirements are needed for ExTaxsI installation, however for the co
 * RAM: 4GB
 * CPU: quad-core or more.
 
-Installation instructions
+Installation instructions in a nutshell
 -------------------------
 **1- Download Python 3:**
 
