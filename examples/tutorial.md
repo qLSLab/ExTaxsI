@@ -15,9 +15,9 @@ or
 * Use git from command line:
 git clone https://github.com/qLSLab/ExTaxsI
 
-3) Conda/mininconda download
+3) We suggest to install Conda or Mininconda to run ExtaxsI - here you can find how to install Miniconda3: https://conda.io/projects/conda/en/latest/user-guide/install/index.html
 
-4) Create the conda environment with the script below, modifying 'myExTaxsIenv' with the name that you prefer: \
+4) Once Miniconda is installed, create the conda environment with the script below, modifying 'myExTaxsIenv' with the name that you prefer: \
 conda create --name myExTaxsIenv --file requirements.txt --channel default --channel etetoolkit --channel plotly
 
 5) Modify settings.ini at:
