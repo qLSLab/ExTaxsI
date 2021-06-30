@@ -6,7 +6,7 @@ ExTaxsI
 Project overview
 ----------------
 ExTaxsI is a bioinformatic tool aimed to elaborate and visualize molecular and taxonomic informations.
-This open-source user friendly project, written in Python 3.7, allows the creation of interactive plots starting from NCBI search query or directly from offline taxonomic files.
+This open-source user friendly project, written in Python 3.7, allows the creation of interactive plots starting from NCBI search query or directly from offline taxonomic files. 
 
 ExTaxsI has multiple functions:
 
@@ -26,6 +26,8 @@ no specific requirements are needed for ExTaxsI installation, however for the co
 
 Installation instructions in a nutshell
 -------------------------
+(Please visit the tutorial directory of this Github page for a step-by-step installation and example usage).
+
 **1- Download Python 3:**
 
 https://www.python.org/
@@ -74,8 +76,6 @@ mac:
 Now that you are in the right directory, run the following command to start:
 
 * python ExTaxsI.py
-
-Please visit the tutorial directory of this Github page for a step-by-step installation and example usage.
 
 Operating instructions
 ----------------------
