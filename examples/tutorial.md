@@ -135,7 +135,7 @@ With option 2, you can digit your query (like in Database module, see the previo
 
 For each option, it is possible to **filter the number of accessions for each species** to be considered to generate the plot. Extaxsi will ask using the _filter value_.
 
-INSERIRE SCATTEPLOT DI ESEMPIO
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/txid7742_ace2_taxonomy_scatterplot.png)
 
 ## World map plot
 You can generate a world map plot with two modalities: manual query or through a file, see Database module tutorial for details (example files for input were provided in the tutorial folder).
