@@ -123,7 +123,7 @@ The Visualization module (option 2 from Main Menu) allows to create plots to vis
 * sunburst plot
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2a.png)
 
-## Scatter plot
+### Scatter plot
 You can generate a scatterplot with the following options: a taxonomy file created with ExTaxsI (from download directory), doing a query or with an external tsv or csv file (see examples for details).
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2b.png)
 
@@ -136,14 +136,14 @@ For each option, it is possible to **filter the number of accessions for each sp
 
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/txid7742_ace2_taxonomy_scatterplot.png)
 
-## World map plot
+### World map plot
 You can generate a world map plot with two modalities: manual query or through a file, see Database module tutorial for details (example files for input were provided in the tutorial folder).
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2e.png)
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2f.png)
 
 INSERIRE WORLD MAP PLOT DI ESEMPIO
 
-## Sun burst plot
+### Sun burst plot
 The modalities to create the sunburst plot are the same of scatterplot.
 Please for details refers to scatterplot examples tutorial.
 
@@ -154,7 +154,7 @@ Taxonomy ID Converted module
 The module 3 allows to convert your TaxIDs into a 6-rank taxonomy or obtained from an organism name the corresponding TaxID. The query can be done both with manual and input file query (see example directory for input files used in the tutorial).
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3a.png)
 
-## Manual query
+### Manual query
 Choosing manual query, you can then decide if you want to convert TaxID to Taxonomy name (6-rank) or viceversa.
 **Warning**: If you submit the TaxID of higher rank than species (e.g. order) the following rank will be filled as NA (Not Assigned).
 
@@ -171,7 +171,7 @@ Then ExTaxsI will return the corresponding TaxIDs.
 
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3d.png)
 
-## Query through an input file
+### Query through an input file
 Press f for input file query. In particular, you can use a list of TaxIDs or a list of organism names (please see example directory for example input files).
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3e.png)
 Press T for a list of TaxIDs or O for a list of organism names (file must have tsv or csv extension).
