@@ -33,9 +33,9 @@ Warning settings
 
 Input files explanation
 ---------------------
-* A
-* T
-* O
+* A_accession_list_example.tsv: list of accessions (one accession per line), the file should be in a csv or tsv format, all the accessions will be in the first column;
+* T_taxid_list_example.tsv: list of TaxIDs (one TaxID per line), the file should be in a csv or tsv format, all the accessions will be in the first column;
+* O_organism_list_example.tsv: list of organism names (one organism name per line), the file should be in a csv or tsv format, all the accessions will be in the first column.
 
 NCBI query explanation
 ---------------------
