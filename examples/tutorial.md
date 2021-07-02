@@ -176,5 +176,5 @@ Press f for input file query. In particular, you can use a list of TaxIDs or a l
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3e.png)
 Press T for a list of TaxIDs or O for a list of organism names (file must have tsv or csv extension).
 
-The tool if there is an header into the file for a correct interpretation, then it saves the results into the download directory.
+The tool asks if there is an header into the file, then it saves the results into the download directory.
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_3f.png)
