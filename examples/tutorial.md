@@ -59,7 +59,7 @@ The tool will ask if you want to update the Taxonomy DB, press Y or N to answer.
 Then the tool will plot the main menu with the three main modules: Database, Visualization and Taxonomy ID Converter.
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_0b.png)
 
-You can press the module that you prefer. \
+You can press the module that you prefer.
 **To follow the tutorial, press 1.**
 
 Database module
