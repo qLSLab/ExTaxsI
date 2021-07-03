@@ -26,7 +26,7 @@ no specific requirements are needed for ExTaxsI installation, however for the co
 
 Installation instructions in a nutshell
 -------------------------
-(Please visit the tutorial directory of this Github page for a step-by-step installation and example usage).
+(Please visit the examples directory of this Github page for a step-by-step installation and example usage).
 
 **1- Download Python 3:**
 
