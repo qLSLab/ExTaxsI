@@ -128,7 +128,6 @@ You can generate a scatterplot with the following options: a taxonomy file creat
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2b.png)
 
 Using option 1 and 3, you can use as input a tsv or csv file with accessions and taxonomy (see the example directory), as we described into the **Database module**.
-**INSERIRE IN EXAMPLE IL FILE** examples/ace2_taxid7742_taxonomy.tsv
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2c.png)
 With option 2, you can digit your query (like in Database module, see the previous slides for details). Then ExTaxsI will create the file with accessions and taxonomy and it will plot it.
 
