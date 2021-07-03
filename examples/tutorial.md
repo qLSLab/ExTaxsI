@@ -83,8 +83,6 @@ You will see the following output:
 You can see example queries. Type ‘carabus convexus’ to follow this tutorial.
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_1c.png)
 
-\
-
 As you can see, Database module has several options.
 Enter the number for the option that you prefer, all the outputs will be saved in 'download' directory.
 Press 4 to obtain all the possible outputs.
