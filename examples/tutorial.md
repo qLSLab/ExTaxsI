@@ -146,7 +146,7 @@ You can generate a world map plot with two modalities: manual query or through a
 The modalities to create the sunburst plot are the same of scatterplot.
 Please for details refers to scatterplot examples tutorial.
 
-INSERIRE SUNBURST PLOT DI ESEMPIO
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/sunburst.png)
 
 Taxonomy ID Converted module
 ---------------------
