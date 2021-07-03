@@ -26,10 +26,12 @@ conda create --name myExTaxsIenv --file requirements.txt --channel default --cha
 
 To create entrez email and API key, you must create a NCBI account (follow the tutorial here https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/).
 
-Warning settings
+Warning
 ---------------------
-* If you have issues with HTTP connection, make sure to fill the NCBI keys in settings.ini
-* This tutorial is built only to demonstrate ExTaxsI functioning: results are not discussed and can change if you consider different versions of the Taxonomy DB or different moments for the download.
+* If you have issues with HTTP connection, make sure to fill the NCBI keys in settings.ini;
+* This tutorial is built only to demonstrate ExTaxsI functioning: results are not discussed and can change if you consider different versions of the Taxonomy DB or different moments for the download;
+* The files provided for accession, organism and TaxID inputs are only for example purpose;
+* If you obtain an empty world map plot, no country metadata were found to fill the map.
 
 Input files explanation
 ---------------------
