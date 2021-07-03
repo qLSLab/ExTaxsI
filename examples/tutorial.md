@@ -140,8 +140,8 @@ For each option, it is possible to **filter the number of accessions for each sp
 You can generate a world map plot with two modalities: manual query or through a file, see Database module tutorial for details (example files for input were provided in the tutorial folder).
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2e.png)
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2f.png)
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/worldmap.png)
 
-INSERIRE WORLD MAP PLOT DI ESEMPIO
 
 ### Sun burst plot
 The modalities to create the sunburst plot are the same of scatterplot.
