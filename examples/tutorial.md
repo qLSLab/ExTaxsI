@@ -8,7 +8,6 @@ Please, for any doubt or issue, contact us through github issue messages or send
 
 Before starting
 ---------------------
-Tests installation were performed on Ubuntu, Windows and MacOSX operatyng systems.
 To install ExTaxsI observe the following instructions:
 1) Download Python 3 if you haven’t already at https://www.python.org/
 2) Clone github repository (link: https://github.com/qLSLab/ExTaxsI) and:
