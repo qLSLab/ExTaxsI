@@ -137,7 +137,7 @@ For each option, it is possible to **filter the number of accessions for each sp
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/txid7742_ace2_taxonomy_scatterplot.png)
 
 ### World map plot
-You can generate a world map plot with two modalities: manual query or through a file, see Database module tutorial for details (example files for input were provided in the tutorial folder).
+You can generate a world map plot with two modalities: manual query or through a file, see Database module tutorial for details.
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2e.png)
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2f.png)
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/worldmap.png)
