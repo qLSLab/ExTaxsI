@@ -128,7 +128,7 @@ The Visualization module (option 2 from Main Menu) allows to create plots to vis
 You can generate a scatterplot with the following options: a taxonomy file created with ExTaxsI (from download directory), doing a query or with an external tsv or csv file (see examples for details).
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2b.png)
 
-Using option 1 and 3, you can use external sources. With option 1 you can use the file with accessions and taxonomy created by the tool, while with option 3 you can use as input a tsv or csv file with a 6 rank taxonomy separated by ';' (see the example directory).
+Using option 1 and 3, you can use external sources. With option 1 you can use the file with accessions and taxonomy created by the tool, while with option 3 you can use as input a tsv or csv file with a 6 rank taxonomy separated by ';' (see the file 'example_taxonomy_by_user.csv' in example directory).
 ![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/tutorial_2c.png)
 With option 2, you can digit your query (like in Database module, see the previous slides for details). Then ExTaxsI will create the file with accessions and taxonomy and it will plot it.
 
