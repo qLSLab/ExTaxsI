@@ -9,25 +9,24 @@ Please, for any doubt or issue, contact us through github issue messages or send
 Before starting
 ---------------------
 To install ExTaxsI observe the following instructions:
-1) Download Python 3 if you haven’t already at https://www.python.org/
-2) Clone github repository (link: https://github.com/qLSLab/ExTaxsI) and:
-* Download ZIP from ExTaxsI github home page, then decompress \
-or 
-* Use git from command line:
-git clone https://github.com/qLSLab/ExTaxsI
+1. Download Python 3 if you haven’t already at https://www.python.org/
+2. Clone github repository (link: https://github.com/qLSLab/ExTaxsI) and:
+    * Download [ZIP](https://github.com/qLSLab/ExTaxsI/archive/refs/heads/master.zip) from ExTaxsI github home page, then decompress it\
+    or 
+    * Use git from command line: `git clone https://github.com/qLSLab/ExTaxsI`
 
-3) We suggest to install Conda or Mininconda to run ExtaxsI - here you can find how to install Miniconda3: https://conda.io/projects/conda/en/latest/user-guide/install/index.html
+3. We suggest to install Conda or Mininconda to run ExtaxsI - here you can find how to install Miniconda3: https://conda.io/projects/conda/en/latest/user-guide/install/index.html
 
-4) Once Miniconda is installed, create the conda environment with the script below, modifying 'myExTaxsIenv' with the name that you prefer: \
-conda create --name myExTaxsIenv --file requirements.txt --channel default --channel etetoolkit --channel plotly
+4. Once Miniconda is installed, create the conda environment with the command below, modifying 'myExTaxsIenv' with the name that you prefer: \
+`conda create --name myExTaxsIenv --file requirements.txt --channel default --channel etetoolkit --channel plotly`
 
-5) Modify settings.ini at:
-* Line 8: insert your entrez e-mail
-* Line 17: insert your entrez API key
+5. Modify settings.ini at:
+  * Line 8: insert your entrez e-mail
+  * Line 17: insert your entrez API key
 
 To create entrez email and API key, you must create a NCBI account (follow the tutorial here https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/).
 
-Warning
+Warnings
 ---------------------
 * If you have issues with HTTP connection, make sure to fill the NCBI keys in settings.ini;
 * This tutorial is built only to demonstrate ExTaxsI functioning: results are not discussed and can change if you consider different versions of the Taxonomy DB or different moments for the download;
@@ -47,12 +46,12 @@ Nucleotide + Entrez query = https://www.ncbi.nlm.nih.gov/homologene/query-tips/
 Run ExTaxsI
 ---------------------
 Activate the conda environment with:
-$ conda activate myExTaxsIenv
+`$ conda activate myExTaxsIenv`
 
 Run the script below to run the tool:
-$ python ExTaxsI.py 
+`$ python ExTaxsI.py` 
 
-Suggestions: 
+*Suggestions:* 
 ExTaxsI implemented the tab compiler, you can use it to insert input files from other directories (e.g. >>> download/A_accession_list_example.tsv)
 do not use spaces ‘ ‘ when you give names to file (we suggest to use underscores ‘_’).
 
