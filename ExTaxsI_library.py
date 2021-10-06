@@ -1386,7 +1386,7 @@ def worldmap_plot(enrich_output):
     print("\n ---- World map plot has been created. ----\n")
 
 # Create scatterplot:
-def scatterplot(accession_taxonomy_output, filter_value=0, title_graph):
+def scatterplot(accession_taxonomy_output, title_graph, filter_value=0):
 
     plot_file_path = accession_taxonomy_output
 
@@ -1395,13 +1395,11 @@ def scatterplot(accession_taxonomy_output, filter_value=0, title_graph):
             with open(plot_file_path, 'r') as axe:
                 r = csv.reader(axe, delimiter=",")
                 r_list = list(r)
-                break
 
         elif plot_file_path[-3:] == 'tsv':
             with open(plot_file_path, 'r') as axe:
                 r = csv.reader(axe, delimiter="\t")
                 r_list = list(r)
-                break
         else:
             print("File extension not CSV or TSV, please use the right format.")
 
@@ -1431,8 +1429,7 @@ def scatterplot(accession_taxonomy_output, filter_value=0, title_graph):
         plot_file_path = plot_file_path[:x]
 
     plot_file_name =  f'{title_graph}_scatterplot.html'
-    filter_title = "{0}_with_less_than_{1}_results_scatterplot".format(title_graph, str(filter_value)),".txt")
-
+    filter_title = f"{title_graph}_with_less_than_{filter_value}_results_scatterplot.txt"
     # dict of rgb data to color our points based on their parent level taxonomy
     color_list = {}
 
@@ -1659,7 +1656,7 @@ def scatterplot(accession_taxonomy_output, filter_value=0, title_graph):
     print("\n----Scatterplot has been created!----\n")
 
 # Create sunburst:
-def sunburst_plot(accession_taxonomy_output, filter_value=0, title_graph):
+def sunburst_plot(accession_taxonomy_output, title_graph, filter_value=0):
     plot_file_path = accession_taxonomy_output
 
     try:
@@ -1667,13 +1664,11 @@ def sunburst_plot(accession_taxonomy_output, filter_value=0, title_graph):
             with open(plot_file_path, 'r') as axe:
                 r = csv.reader(axe, delimiter=",")
                 r_list = list(r)
-                break
 
         elif plot_file_path[-3:] == 'tsv':
             with open(plot_file_path, 'r') as axe:
                 r = csv.reader(axe, delimiter="\t")
                 r_list = list(r)
-                break
         else:
             print("File extension not CSV or TSV, please use the right format.")
 
@@ -1712,7 +1707,7 @@ def sunburst_plot(accession_taxonomy_output, filter_value=0, title_graph):
         plot_file_path = plot_file_path[:x]
 
     plot_file_name =  f'{title_graph}_sunburst.html'
-    filter_title = "{0}_with_less_than_{1}_results_sunburst".format(title_graph, str(filter_value)),".txt")
+    filter_title = f"{title_graph}_with_less_than_{filter_value}_results_sunburst.txt"
 
     # Initializing the list of traces for sunburst
     lab = [" "]  # List of labels
@@ -1837,7 +1832,8 @@ def taxonomyID_converter(text_search = None,
                 print("File location: ", taxa_id_path, "\n")
                 break
 
-        file_name = f'{file_search.split('.')[0]}_taxonomy_ID_output.txt'
+        outfile = file_search.split('.')[0]
+        file_name = f'{outfile}_taxonomy_ID_output.txt'
         if '/' in file_name:
             file_name = file_name.split('/')[-1]
 
