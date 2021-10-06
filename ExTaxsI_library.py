@@ -1869,7 +1869,7 @@ def taxonomyID_converter(text_search = None,file_search = None, input_type = 'O'
                         out_handle.write(taxonomy_id_out)
                     continue
 
-            if text_search:
+            if file_search:
                 update_progress(len(taxa_ids), len(taxa_ids))
                 out_handle.close()
     else:
@@ -2493,6 +2493,6 @@ def db_creation(text_search = None,
 
 
 load_configurations("alberto.brusati@gmail.com","0ae434ddfd0897bdefe6398398d80ad12809")
-taxonomyID_converter(text_search = '8832+8833', input_type = 'T')
+taxonomyID_converter(file_search = 'example/O_organism_list_example.tsv', input_type = 'O')
 #db_creation(text_search='txid8832',accession_taxonomy_output=False, fasta_output=False, marker_output=False, top10_plot=False , enrich_output=True)
 #db_creation(file_search='example/A_accession_list_example.tsv',input_file_type='A',accession_taxonomy_output=True, fasta_output=True, marker_output=True,top10_plot=True)
