@@ -1800,57 +1800,28 @@ def sunburst_plot(accession_taxonomy_output, filter_value=0, title_graph):
     plot(fig, filename=plot_file_name)
 
 # Taxonomy id converter:
-def taxonomyID_converter():
+def taxonomyID_converter(text_search = None,
+                         file_search = None,
+                         input_type = 'O',
+                         multiple_entry = False):
     print("---- TAXONOMY ID CONVERTER ----\n")
-    id_or_name = 0
-    file_manual = str(input(
-        "Do you want to convert taxonomy IDs through a file or manual input? (f > file, m > manual) "))
+    if text_search:  # Considerare la tipologia di file da avere come input
 
-    while len(file_manual) <= 0 or file_manual[0] not in ("f", "F", "m", "M"):
-        print("Wrong input, write <f> for csv or <m> for manual! (Without <>)\n")
-        file_manual = input(
-            "Do you want to convert taxonomy IDs through a tsv or manual input? (f > file, m > manual) ")
+        if input_type in ('T','t'):
+            taxa_ids = text_search.split("+")
+            skip_first_row = False
 
-    if file_manual[0] in ("m", "M"):  # Considerare la tipologia di file da avere come input
-        while (True):
-            try:
-                id_or_name = int(input('1 - To convert TaxIDs to Taxonomy names\n'+
-                                       '2 - To convert Taxonomy names to TaxIDs\n'+
-                                       '>> Enter the option number: '))
-                if id_or_name == 1:
-                    taxa_input = str(input("\nIf you want to search for multiple taxonomy IDs add '+' as separator \n" +
-                                                   "Example: 6224+458+26351+6223\n" +
-                                                   "\n>> Enter one or more taxonomy IDs: "))
-                    taxa_ids = taxa_input.split("+")
-                    skip_first_row = False
-                    break
-
-                if id_or_name == 2:
-                    taxa_input = str(input("\nIf you want to search for multiple taxonomies name add '+' as separator \n" +
-                                                   "Example: odonata+bufo bufo+arachnida+Hymenoptera\n" +
-                                                   "\n>> Enter one or more taxonomies name: "))
-                    taxa_ids = taxa_input.split("+")
-                    skip_first_row = False
-                    break
-
-            except ValueError as err:
-                print('\nPlease retry! Enter 1 or 2!')
-                continue
+        if input_type in ('O','o'):
+            taxa_ids = text_search.split("+")
+            skip_first_row = False
 
     else:
 
         while True:
-            taxa_file_type = input(">>Is your tsv/csv a list of TaxIDs or organism?[Enter T or O]: ")
-            o_choice =['O','o']
-            if taxa_file_type[0] in o_choice:
-                id_or_name = 2
-
-            taxa_id_path = input(">> Enter your file path: ")
-            print("")
+            taxa_id_path = file_search
             taxa_ids = []
-
             try:
-                logging.info("Loading tsv file...")
+                logging.info("\nLoading tsv file...")
                 with open(taxa_id_path, 'r') as r:
                     file_csv_query = csv.reader(r, skipinitialspace=True, delimiter='\t')
 
@@ -1864,34 +1835,24 @@ def taxonomyID_converter():
                 logging.warning('No file found or permission denied, please check your file or location: %s' % err)
                 print("No file found or permission denied, please check your file or location")
                 print("File location: ", taxa_id_path, "\n")
+                break
 
-        file_name = str(input(">> Enter your output file name: "))
-
-        if len(file_name) <= 0:
-            print("No name submitted or unexpected symbols, using your input file name + '_taxonomy_ID_output.txt')")
-            file_name = "{0}_taxonomy_ID_output.txt".format(taxa_id_path)
-
-        else:
-            file_name = "./download/{0}".format(file_name)
+        file_name = f'{file_search.split('.')[0]}_taxonomy_ID_output.txt'
+        if '/' in file_name:
+            file_name = file_name.split('/')[-1]
 
         out_handle = open(file_name, "w")
 
         ## POSSIBILE MENU PER SCEGLIERE CHE LIVELLO TASSONOMICO POSSA SERVIRE
         print(taxa_ids[0])
-        if input("Is this row a title? (Y > yes, N > no) ") in ("Y", "y"):
-            skip_first_row = True
-            print("Ok, i'll skip it")
+        skip_first_row = False
 
-        else:
-            print("Good!\n")
-            skip_first_row = False
-
-    if id_or_name == 2:
-        if file_manual[0] in ("m", "M"):
+    if input_type in ('O','o'):
+        if text_search:
             print(ncbi.get_name_translator(taxa_ids))
         else:
             for counter, taxa in enumerate(taxa_ids):
-                if file_manual[0] not in ("m", "M"):
+                if file_search:
                     update_progress(counter, len(taxa_ids))
 
                 if skip_first_row:
@@ -1915,15 +1876,15 @@ def taxonomyID_converter():
                         out_handle.write(taxonomy_id_out)
                     continue
 
-            if file_manual[0] not in ("m", "M"):
+            if text_search:
                 update_progress(len(taxa_ids), len(taxa_ids))
                 out_handle.close()
     else:
         for counter, taxa in enumerate(taxa_ids):
 
-            if file_manual[0] in ("m", "M"):
+            if text_search:
                 print("Tax ID: %s" % taxa)
-            if file_manual[0] not in ("m", "M"):
+            if file_search:
                 update_progress(counter, len(taxa_ids))
 
             if skip_first_row:
