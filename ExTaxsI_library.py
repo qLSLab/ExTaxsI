@@ -1795,10 +1795,7 @@ def sunburst_plot(accession_taxonomy_output, title_graph, filter_value=0):
     plot(fig, filename=plot_file_name)
 
 # Taxonomy id converter:
-def taxonomyID_converter(text_search = None,
-                         file_search = None,
-                         input_type = 'O',
-                         multiple_entry = False):
+def taxonomyID_converter(text_search = None,file_search = None, input_type = 'O'):
     print("---- TAXONOMY ID CONVERTER ----\n")
     if text_search:  # Considerare la tipologia di file da avere come input
 
@@ -1894,7 +1891,7 @@ def taxonomyID_converter(text_search = None,
 
             except ValueError:  # In case its id is not found
                 logging.error(" There is no taxonomy for %s, ncbi.get_lineage exception" % taxa, exc_info=True)
-                if file_manual[0] in ("m", "M"):
+                if text_search:
                     print("There is no taxonomy for %s, ncbi.get_lineage exception\n" % taxa)
 
                 else:
@@ -1934,7 +1931,7 @@ def taxonomyID_converter(text_search = None,
                         specie = rank_tmp[lineage[z]]
 
                 taxa_list = ";".join([phylum, clas, order, family, genus, specie])
-                if file_manual[0] in ("m", "M"):
+                if text_search:
                     print("Phylum;Class;Order;Family;Genus;Species\n%s\n" % taxa_list)
 
                 else:
@@ -1943,7 +1940,7 @@ def taxonomyID_converter(text_search = None,
                     out_handle.write(taxonomy_id_out)
 
             else:
-                if file_manual[0] in ("m", "M"):
+                if text_search:
                     print("Not found in Lineage %i" % taxa)
 
                 else:
@@ -1951,7 +1948,7 @@ def taxonomyID_converter(text_search = None,
                     taxonomy_id_out = "{0}\t{1}{2}".format(taxa, taxa_list, "\n")
                     out_handle.write(taxonomy_id_out)
 
-        if file_manual[0] not in ("m", "M"):
+        if file_search:
             update_progress(len(taxa_ids), len(taxa_ids))
             out_handle.close()
 
@@ -2496,5 +2493,6 @@ def db_creation(text_search = None,
 
 
 load_configurations("alberto.brusati@gmail.com","0ae434ddfd0897bdefe6398398d80ad12809")
-db_creation(text_search='txid8832',accession_taxonomy_output=False, fasta_output=False, marker_output=False, top10_plot=False , enrich_output=True)
+taxonomyID_converter(text_search = '8832+8833', input_type = 'T')
+#db_creation(text_search='txid8832',accession_taxonomy_output=False, fasta_output=False, marker_output=False, top10_plot=False , enrich_output=True)
 #db_creation(file_search='example/A_accession_list_example.tsv',input_file_type='A',accession_taxonomy_output=True, fasta_output=True, marker_output=True,top10_plot=True)
