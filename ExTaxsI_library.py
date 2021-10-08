@@ -1214,7 +1214,7 @@ def download_accession_taxonomy(counter_id, webenv, query_key, query, folder_pat
         return
 
 # Create worldmap html:
-def worldmap_plot(enrich_output):
+def worldmap_plot(enrich_output,title_map):
     df_wm=pd.read_csv(enrich_output, sep='\t', header=[0])
     df_coordinates = df_wm[df_wm['lat'].notna()]
     df_countries = df_wm[~df_wm.isin(df_coordinates)]
@@ -1223,6 +1223,36 @@ def worldmap_plot(enrich_output):
     coordinates = df_coordinates.to_dict('records')
     df_countries = df_countries[['org', 'country', 'gene']]
     countries = df_countries.to_dict('records')
+
+   #menage dataframe coordinates for plot:
+    if coordinates:
+        df_coordinates = pd.DataFrame(coordinates)
+        df_coordinates['count'] = 1
+        df_coordinates['gene'] = [','.join(map(str, l)) if type(l) == list else l for l in df_coordinates['gene'] ]
+        df_coordinates = df_coordinates.groupby(['lat','lon']).agg({'org':','.join,'gene':','.join,'count':'sum'}).reset_index()
+
+        df_coordinates['gene'] = [ list(l.split(',')) for l in df_coordinates['gene']]
+        df_coordinates['gene'] = [dict(Counter(l)) for l in df_coordinates['gene']]
+        df_coordinates['gene'] = [str(dic).replace('{','').replace('}','') if type(dic) == dict else dic for dic in df_coordinates['gene'] ]
+
+        df_coordinates['org'] = [ list(l.split(',')) for l in df_coordinates['org']]
+        df_coordinates['org'] = [dict(Counter(l)) for l in df_coordinates['org']]
+        df_coordinates['org'] = [str(dic).replace('{','').replace('}','') if type(dic) == dict else dic for dic in df_coordinates['org'] ]
+
+    #menage dataframe country for plot:
+    if countries:
+        df_country = pd.DataFrame(countries)
+        df_country['count'] = 1
+        df_country['gene'] = [','.join(map(str, l)) if type(l) == list else l for l in df_country['gene'] ]
+        df_country = df_country.groupby(['country']).agg({'org':','.join,'gene':','.join,'count':'sum'}).reset_index()
+
+        df_country['gene'] = [ list(l.split(',')) for l in df_country['gene']]
+        df_country['gene'] = [dict(Counter(l)) for l in df_country['gene']]
+        df_country['gene'] = [str(dic).replace('{','').replace('}','') if type(dic) == dict else dic for dic in df_country['gene'] ]
+
+        df_country['org'] = [ list(l.split(',')) for l in df_country['org']]
+        df_country['org'] = [dict(Counter(l)) for l in df_country['org']]
+        df_country['org'] = [str(dic).replace('{','').replace('}','') if type(dic) == dict else dic for dic in df_country['org'] ]
 
     cities = []
     names = []
@@ -1410,10 +1440,7 @@ def scatterplot(accession_taxonomy_output, title_graph, filter_value=0):
 
     taxonomy_list = []
     for line in r_list:
-        if query_or_path == 3:
-            taxonomy_list.append(line[0].split(";"))
-        else:
-            taxonomy_list.append(line[1].split(";"))
+        taxonomy_list.append(line[1].split(";"))
     #print(taxonomy_list)
 
     #Filter value and title graph:
@@ -1681,17 +1708,14 @@ def sunburst_plot(accession_taxonomy_output, title_graph, filter_value=0):
     taxa_level = ["Phylum", "Class", "Order", "Family", "Genus", "Species"]
 
     skip_first_row = False
-
+    print(r_list)
     for row in r_list:
 
         if skip_first_row:  # Excluding the first row when we find titles
             skip_first_row = False
             continue
 
-        if query_or_path == 3:
-            taxonomy_list.append(row[0].split(";"))
-        else:
-            taxonomy_list.append(row[1].split(";"))
+        taxonomy_list.append(row[1].split(";"))
 
     taxonomy_array = np.array(taxonomy_list)
 
@@ -2493,6 +2517,9 @@ def db_creation(text_search = None,
 
 
 load_configurations("alberto.brusati@gmail.com","0ae434ddfd0897bdefe6398398d80ad12809")
-taxonomyID_converter(file_search = 'example/O_organism_list_example.tsv', input_type = 'O')
+# taxonomyID_converter(file_search = 'example/O_organism_list_example.tsv', input_type = 'O')
 #db_creation(text_search='txid8832',accession_taxonomy_output=False, fasta_output=False, marker_output=False, top10_plot=False , enrich_output=True)
 #db_creation(file_search='example/A_accession_list_example.tsv',input_file_type='A',accession_taxonomy_output=True, fasta_output=True, marker_output=True,top10_plot=True)
+#sunburst_plot("download/txid8832_taxonomy.tsv", "example")
+#scatterplot("download/txid8832_taxonomy.tsv", "example")
+worldmap_plot("download/txid8832_enriched.tsv",'example_worldmap')
