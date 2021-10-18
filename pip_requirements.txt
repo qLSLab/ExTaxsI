@@ -8,5 +8,4 @@ sympy
 nose
 plotly
 ete3
-psutil
-requests
+kaleido
