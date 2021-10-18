@@ -8,7 +8,7 @@ setup(
   author = 'alberto brusati',
   author_email = 'alberto.brusati@gmail.com',
   url = 'https://github.com/user/extaxsi',
-  download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',    
+  download_url = 'https://github.com/user/extaxsi/archive/refs/tags/v_01.tar.gz',    
   keywords = ['bioinformatic', 'ncbi', 'molecular data', 'visualization', 'taxonomy', 'converter'],
   install_requires=[
           'biopython',
