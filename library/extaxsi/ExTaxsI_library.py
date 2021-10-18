@@ -2423,6 +2423,8 @@ def db_creation(text_search = None,
                     if overwrite_file:
                         print(color.YELLOW +"Exist already a file with the same name, overwriting...." + color.END)
                         overwrite = 0
+                    else:
+                        overwrite = 1
 
                 else:
                     overwrite = 1
@@ -2553,6 +2555,8 @@ def db_creation(text_search = None,
                 if overwrite_file:
                     print(color.YELLOW +"Exist already a file with the same name, overwriting...." + color.END)
                     overwrite = 0
+                else:
+                    overwrite = 1
             else:
                 overwrite = 1
 
@@ -2574,6 +2578,8 @@ def db_creation(text_search = None,
                 if overwrite_file:
                     print(color.YELLOW +"Exist already a file with the same name, overwriting...." + color.END)
                     overwrite = 0
+                else:
+                    overwrite = 1
             else:
                 overwrite = 1
 
