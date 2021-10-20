@@ -1229,10 +1229,12 @@ def worldmap_plot(enrich_output,title_map):
     '''
     Create worldmap plot.
 
-    Keywords arguments:
-    arg[0] (str) -- path to file, enriched output if created with db_creation.
-    arg[1] (str) -- title of the plot.
+    Arg:
+    enrich_output [(str)] -- path to file, enriched output if created with db_creation.
+    title_map (str) -- title of the plot.
 
+    Returns:
+    plot_world_map -- interactive map of the features distributions.
     Example:
     worldmap_plot("download/txid8832_enriched.tsv",'example_worldmap')
     '''
