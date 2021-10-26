@@ -4,12 +4,11 @@ pkg='extaxsi'
 # adjust the Python versions you would like to build
 array=( 3.5 3.6 3.7 3.8 3.9 )
 echo "Building conda package ..."
-cd ~
-conda skeleton pypi $pkg
+#conda skeleton pypi $pkg
 cd $pkg
-wget https://conda.io/docs/_downloads/build1.sh
-wget https://conda.io/docs/_downloads/bld.bat
-cd ~
+conda update conda
+conda update conda-build
+cd /home/abrusati/Documents/SCRIPTS/TMP
 # building conda packages
 for i in "${array[@]}"
 do
