@@ -2,13 +2,13 @@ from distutils.core import setup
 setup(
   name = 'extaxsi',
   packages = ['extaxsi'],
-  version = '0.1',
+  version = '0.2',
   license='MIT',
   description = 'Extaxsi is a bioinformatic library aimed to elaborate and visualize molecular and taxonomic informations',
   author = 'alberto brusati',
   author_email = 'alberto.brusati@gmail.com',
   url = 'https://github.com/user/extaxsi',
-  download_url = 'https://github.com/user/extaxsi/archive/refs/tags/v_01.tar.gz',    
+  download_url = 'https://github.com/user/extaxsi/archive/refs/tags/v_02.tar.gz',
   keywords = ['bioinformatic', 'ncbi', 'molecular data', 'visualization', 'taxonomy', 'converter'],
   install_requires=[
           'biopython',
