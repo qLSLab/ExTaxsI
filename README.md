@@ -27,7 +27,7 @@ no specific requirements are needed for ExTaxsI installation, however for the co
 Installation instructions in a nutshell
 -------------------------
 Please visit the **examples** directory of this Github page for a step-by-step installation and example usage. \
-PyPI library is also available to directly integrate extaxsi functions into Python code - for installation and usage, please visit the **library** directory.
+PyPI package is also available to directly integrate ExTaxsI functions into Python code - for installation and usage, please visit the **library** directory.
 
 **1- Download Python 3:**
 
