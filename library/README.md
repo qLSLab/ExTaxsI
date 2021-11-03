@@ -1,4 +1,4 @@
-ExTaxsI library
+ExTaxsI functions
 =======
 
 Library overview
