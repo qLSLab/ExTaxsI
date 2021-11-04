@@ -1,5 +1,5 @@
 ExTaxsI functions
-=======
+-----------------
 
 Library overview
 ----------------
@@ -13,7 +13,7 @@ ExTaxsI functions can be used separately from the ExTaxsI tool. In general, ther
 *   scatterplot() - create scatterplot
 *   worldmap_plot() - create worldmap plot
 
-In the **functions_installation_and_tutorial.ipynb** notebook installation and tutorials for configuration and usage are provided. 
+In the [github](https://github.com/qLSLab/ExTaxsI/blob/master/library/functions_installation_and_tutorial.ipynb) notebook installation and tutorials for configuration and usage are provided. 
 Input files used are available in the **examples** directory.
 
 For any doubt, please write to g.agostinetto@campus.unimib.it
