@@ -1444,12 +1444,15 @@ def worldmap_plot(enrich_output,title_map):
 def scatterplot(accession_taxonomy_output, title_graph, filter_value=0):
     """Create scatterplot
 
-    Args:
-        accession_taxonomy_output ([str]): path to file, accession with taxonomy output if created with db_creation.
-        title_graph ([str]): title of the plot
-        filter_value (int, optional): enter the minimum number of accession per organism. Defaults to 0.
+    Keywords arguments:
+        accession_taxonomy_output ([str]) -- path to file, accession with taxonomy output if created with db_creation.
+        title_graph ([str]) -- title of the plot
+        filter_value (int, optional) -- enter the minimum number of accession per organism. Defaults to 0.
+
+    Example:
+        scatterplot("download/txid8832_taxonomy.tsv", "example")
     """
-    
+
 
     plot_file_path = accession_taxonomy_output
 
@@ -1721,9 +1724,9 @@ def sunburst_plot(accession_taxonomy_output, title_graph, filter_value=0):
     Create sunburst plot.
 
     Keywords arguments:
-    arg[0] (str) -- path to file, accession with taxonomy output if created with db_creation.
-    arg[1] (str) -- title of the plot.
-    filter_value (int) -- enter the minimum number of accession per organism (default 0).
+    accession_taxonomy_output ([str]) -- path to file, accession with taxonomy output if created with db_creation.
+    title_graph ([str]) -- title of the plot.
+    filter_value (int, optional) -- enter the minimum number of accession per organism (default 0).
 
     Example:
     sunburst_plot("download/txid8832_taxonomy.tsv", "example")
@@ -2595,4 +2598,3 @@ def db_creation(text_search = None,
 
         if enrich_output:
             download_enrich_file(counter_queries, web_env, key, search_index, directory, file_name=csv_file_module_one)
-    
