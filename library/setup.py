@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
   name = 'extaxsi',
   packages = ['extaxsi'],
-  version = '0.3.8',
+  version = '0.3.9',
   license='MIT',
   description = 'Extaxsi is a bioinformatic library aimed to elaborate and visualize molecular and taxonomic informations',
   long_description="""ExTaxsI functions \n
