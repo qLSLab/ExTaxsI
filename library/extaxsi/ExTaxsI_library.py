@@ -2128,7 +2128,7 @@ def db_creation(text_search = None,
 
             if counter_query == 0:
                 print("\nNo results found with this query: %s\nMaybe a typo?\n" % text_search)
-                continue
+                break
             else:
                 print("\nThe number of sequence found is: {0}{2}{1}".format(color.GREEN,
                                                                             color.END,
